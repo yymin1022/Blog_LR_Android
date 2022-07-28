@@ -15,13 +15,18 @@ import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 class PostViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val postID = intent.getStringExtra("psotID")
+        val postType = intent.getStringExtra("postType")
+
         setContent {
             Blog_LR_AndroidTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Text("Android")
+                    Text("PostView - ID is $postID")
+                    Text("PostView - Type is $postType")
                 }
             }
         }
