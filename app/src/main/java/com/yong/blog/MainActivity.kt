@@ -1,5 +1,7 @@
 package com.yong.blog
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,6 +9,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat.startActivity
 import com.yong.blog.ui.theme.*
 
 class MainActivity : ComponentActivity() {
@@ -40,11 +44,29 @@ fun MainUI() {
 
 @Composable
 fun MainButtons() {
+    val context = LocalContext.current
     Column {
-        MainButtonItem("Blog") { /* TODO */ }
-        MainButtonItem("Project") { /* TODO */ }
-        MainButtonItem("Problem Solving") { /* TODO */ }
-        MainButtonItem("About") { /* TODO */ }
+        MainButtonItem("Blog") {
+            val intent = Intent(context, PostListActivity::class.java)
+            intent.putExtra("postType", "blog")
+            context.startActivity(intent)
+        }
+        MainButtonItem("Project") {
+            val intent = Intent(context, PostListActivity::class.java)
+            intent.putExtra("postType", "project")
+            context.startActivity(intent)
+        }
+        MainButtonItem("Problem Solving") {
+            val intent = Intent(context, PostListActivity::class.java)
+            intent.putExtra("postType", "solving")
+            context.startActivity(intent)
+        }
+        MainButtonItem("About") {
+            val intent = Intent(context, PostViewActivity::class.java)
+            intent.putExtra("postType", "about")
+            intent.putExtra("postID", "LR")
+            context.startActivity(intent)
+        }
     }
 }
 
