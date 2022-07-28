@@ -17,7 +17,6 @@ class PostListActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Blog_LR_AndroidTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
