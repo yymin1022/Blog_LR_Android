@@ -3,6 +3,7 @@ package com.yong.blog
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -16,7 +17,7 @@ class PostViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val postID = intent.getStringExtra("psotID")
+        val postID = intent.getStringExtra("postID")
         val postType = intent.getStringExtra("postType")
 
         setContent {
@@ -25,8 +26,10 @@ class PostViewActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Text("PostView - ID is $postID")
-                    Text("PostView - Type is $postType")
+                    Column {
+                        Text("PostView - ID is $postID")
+                        Text("PostView - Type is $postType")
+                    }
                 }
             }
         }
