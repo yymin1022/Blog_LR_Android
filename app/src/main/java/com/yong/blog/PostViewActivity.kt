@@ -5,9 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,8 +15,8 @@ class PostViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val postID = intent.getStringExtra("postID")
-        val postType = intent.getStringExtra("postType")
+        val postID = intent.getStringExtra("postID").toString()
+        val postType = intent.getStringExtra("postType").toString()
 
         setContent {
             Blog_LR_AndroidTheme {
@@ -26,12 +24,32 @@ class PostViewActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Column {
-                        Text("PostView - ID is $postID")
-                        Text("PostView - Type is $postType")
-                    }
+                    PostViewUI(postID, postType)
                 }
             }
         }
+    }
+}
+
+@Composable
+fun PostViewUI(postID: String, postType: String){
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("1인개발자 LR의 IT블로그") }
+            )
+        }
+    ) {
+        Column {
+            PostViewContainer(postID, postType)
+        }
+    }
+}
+
+@Composable
+fun PostViewContainer(postID: String, postType: String){
+    Column {
+        Text("PostView - ID is $postID")
+        Text("PostView - Type is $postType")
     }
 }
