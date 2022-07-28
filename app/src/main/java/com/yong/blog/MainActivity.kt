@@ -1,6 +1,5 @@
 package com.yong.blog
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +9,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat.startActivity
 import com.yong.blog.ui.theme.*
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +16,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Blog_LR_AndroidTheme {
-                // A surface container using the 'background' color from the theme
                 MainUI()
             }
         }
