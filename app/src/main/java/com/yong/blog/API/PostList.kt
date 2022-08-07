@@ -5,6 +5,6 @@ class PostList(var postType: String) {
     var postList = Array(1, {})
 
     fun getPostList(){
-        
+
     }
 }
