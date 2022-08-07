@@ -20,7 +20,9 @@ class API {
         return curPostList
     }
 
-    fun getServerPostImage(postType: String, postID: String, srcID: String){
+    fun getServerPostImage(postType: String, postID: String, srcID: String): String{
+        val curSrcData = "TEST_SRC"
 
+        return curSrcData
     }
 }
