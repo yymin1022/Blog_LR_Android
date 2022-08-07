@@ -6,8 +6,4 @@ class PostData(postType: String, postID: String) {
     var postTag = Array(1, {})
     var postTitle = ""
     var postURL = ""
-
-    fun getPostData(){
-
-    }
 }
