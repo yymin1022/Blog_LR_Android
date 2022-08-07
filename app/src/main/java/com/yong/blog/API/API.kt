@@ -5,15 +5,19 @@ class API {
         val curPostData = PostData(postType, postID)
         curPostData.postDate = "20220101"
         curPostData.postIsPinned = false
-        curPostData.postTag = Array(1) { "Test Tag" }
+        curPostData.postTag = Array(0) {}
         curPostData.postTitle = "Test Post Title"
         curPostData.postURL = "TEST_POST"
 
         return curPostData
     }
 
-    fun getServerPostList(postType: String){
+    fun getServerPostList(postType: String): PostList{
+        val curPostList = PostList(postType)
+        curPostList.postCount = 1
+        curPostList.postList = Array(0){}
 
+        return curPostList
     }
 
     fun getServerPostImage(postType: String, postID: String, srcID: String){
