@@ -1,15 +1,15 @@
 package com.yong.blog.API
 
 class API {
-    fun getPostData(){
+    fun getPostData(postType: String, postID: String){
 
     }
 
-    fun getPostList(){
+    fun getPostList(postType: String){
 
     }
 
-    fun getPostImage(){
+    fun getPostImage(postType : String, postID : String, srcID : String){
 
     }
 }
