@@ -8,6 +8,6 @@ class PostData(var postID: String, var postType: String) {
     var postURL = ""
 
     fun getPostData(){
-        
+
     }
 }
