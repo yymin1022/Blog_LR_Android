@@ -19,9 +19,12 @@ object API {
     }
 
     fun getServerPostList(postType: String): PostList{
+        var postCount = 0
+        var postList = Array(0){}
+
         val curPostList = PostList()
-        curPostList.postCount = 1
-        curPostList.postList = Array(0){}
+        curPostList.postCount = postCount
+        curPostList.postList = postList
 
         return curPostList
     }
