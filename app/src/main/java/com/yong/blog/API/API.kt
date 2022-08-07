@@ -2,12 +2,18 @@ package com.yong.blog.API
 
 object API {
     fun getServerPostData(postType: String, postID: String): PostData{
+        var postDate = "20220101"
+        var postIsPinned = false
+        var postTag = Array(0){}
+        var postTitle = "Test Post Title"
+        var postURL = "TEST_POST_URL"
+
         val curPostData = PostData()
-        curPostData.postDate = "20220101"
-        curPostData.postIsPinned = false
-        curPostData.postTag = Array(0) {}
-        curPostData.postTitle = "Test Post Title"
-        curPostData.postURL = "TEST_POST"
+        curPostData.postDate = postDate
+        curPostData.postIsPinned = postIsPinned
+        curPostData.postTag = postTag
+        curPostData.postTitle = postTitle
+        curPostData.postURL = postURL
 
         return curPostData
     }
