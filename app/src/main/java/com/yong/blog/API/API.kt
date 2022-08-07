@@ -1,6 +1,6 @@
 package com.yong.blog.API
 
-class API {
+object API {
     fun getServerPostData(postType: String, postID: String): PostData{
         val curPostData = PostData()
         curPostData.postDate = "20220101"

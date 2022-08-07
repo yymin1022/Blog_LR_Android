@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.yong.blog.API.API
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 
 class PostListActivity : ComponentActivity() {
@@ -15,6 +16,7 @@ class PostListActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val postType = intent.getStringExtra("postType").toString()
+        val postList = API.getServerPostList(postType)
 
         setContent {
             Blog_LR_AndroidTheme {
