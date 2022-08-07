@@ -2,7 +2,7 @@ package com.yong.blog.API
 
 class API {
     fun getServerPostData(postType: String, postID: String): PostData{
-        val curPostData = PostData(postType, postID)
+        val curPostData = PostData()
         curPostData.postDate = "20220101"
         curPostData.postIsPinned = false
         curPostData.postTag = Array(0) {}
@@ -13,7 +13,7 @@ class API {
     }
 
     fun getServerPostList(postType: String): PostList{
-        val curPostList = PostList(postType)
+        val curPostList = PostList()
         curPostList.postCount = 1
         curPostList.postList = Array(0){}
 

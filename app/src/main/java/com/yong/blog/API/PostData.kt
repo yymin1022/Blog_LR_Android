@@ -1,6 +1,6 @@
 package com.yong.blog.API
 
-class PostData(postType: String, postID: String) {
+class PostData() {
     var postDate = ""
     var postIsPinned = false
     var postTag = Array(1, {})
