@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.yong.blog.API.API
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 
 class PostViewActivity : ComponentActivity() {
@@ -17,6 +18,8 @@ class PostViewActivity : ComponentActivity() {
 
         val postID = intent.getStringExtra("postID").toString()
         val postType = intent.getStringExtra("postType").toString()
+
+        val postData = API.getServerPostData(postType, postID)
 
         setContent {
             Blog_LR_AndroidTheme {
