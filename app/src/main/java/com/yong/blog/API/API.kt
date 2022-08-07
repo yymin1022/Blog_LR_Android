@@ -1,11 +1,11 @@
 package com.yong.blog.API
 
 class API {
-    fun getServerPostData(postType: String, postID: String, postData: PostData){
+    fun getServerPostData(postType: String, postID: String){
 
     }
 
-    fun getServerPostList(postType: String, postList: PostList){
+    fun getServerPostList(postType: String){
 
     }
 
