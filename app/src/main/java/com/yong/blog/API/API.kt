@@ -33,6 +33,7 @@ object API {
             }
 
             override fun onFailure(call: Call<PostDataResponse>, t: Throwable) {
+                Log.e("API_START", call.request().toString())
                 Log.e("API_ERR", t.toString())
             }
         })
@@ -54,6 +55,7 @@ object API {
             }
 
             override fun onFailure(call: Call<PostListResponse>, t: Throwable) {
+                Log.e("API_START", call.request().toString())
                 Log.e("API_ERR", t.toString())
             }
         })
