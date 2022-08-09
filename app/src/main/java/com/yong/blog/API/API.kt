@@ -44,12 +44,14 @@ object API {
 }
 
 object RetrofitUtil {
-    val BASE_URL = "https://api.dev-lr.com"
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    private const val BASE_URL = "https://api.dev-lr.com"
+    
+    private fun initRetrofit() =
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(RetrofitInterface::class.java)
 }
 
 interface RetrofitInterface {
