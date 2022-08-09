@@ -47,3 +47,38 @@ object RetrofitUtil {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 }
+
+data class PostDataResponse(
+    val RESULT_CODE: Int,
+    val RESULT_MSG: String,
+    val RESULT_DATA: PostDataResponseData
+)
+
+data class PostDataResponseData (
+    val PostContent: String,
+    val PostDate: String,
+    val PostIsPinned: Boolean,
+    val PostTag: List<String>,
+    val PostTitle: String,
+    val PostURL: String
+)
+
+data class PostListResponse (
+    val RESULT_CODE: Int,
+    val RESULT_MSG: String,
+    val RESULT_DATA: PostListResponseData
+)
+
+data class PostListResponseData (
+    val PostCount: Int,
+    val PostList: List<PostItem>
+)
+
+data class PostItem (
+    val PostDate: String,
+    val PostID: String,
+    val PostIsPinned: Boolean,
+    val PostTag: List<String>,
+    val PostTitle: String,
+    val PostURL: String
+)
