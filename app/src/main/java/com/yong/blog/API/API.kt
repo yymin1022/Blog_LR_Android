@@ -1,7 +1,11 @@
 package com.yong.blog.API
 
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 object API {
     fun getServerPostData(postType: String, postID: String): PostData{
@@ -46,6 +50,17 @@ object RetrofitUtil {
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+}
+
+interface PostDataInterface {
+    @POST("/getPostData")
+    fun getPostData(@Query("postType") postType: String,
+                   @Query("postID") postID: String): Call<PostDataResponse>
+}
+
+interface PostListInterface {
+    @POST("/getPostList")
+    fun getPostList(@Query("postType") postType: String): Call<PostListResponse>
 }
 
 data class PostDataResponse(
