@@ -24,8 +24,8 @@ object API {
                     resultPostData.postTitle = response.body()?.RESULT_DATA!!.PostTitle
                     resultPostData.postURL = response.body()?.RESULT_DATA!!.PostURL
 
-                    Log.i("API RESULT", "PostTitle : ${resultPostData.postTitle}")
-                    Log.i("API RESULT", "PostUTL : ${resultPostData.postURL}")
+                    Log.d("API_RESULT", "PostTitle : ${resultPostData.postTitle}")
+                    Log.d("API_RESULT", "PostURL : ${resultPostData.postURL}")
                 }
             }
 
@@ -47,8 +47,8 @@ object API {
                     resultPostList.postCount = response.body()?.RESULT_DATA!!.PostCount
                     resultPostList.postList = response.body()?.RESULT_DATA!!.PostList
 
-                    Log.i("API RESULT", "PostCount : ${resultPostList.postCount}")
-                    Log.i("API RESULT", "PostList : ${resultPostList.postList}")
+                    Log.d("API_RESULT", "PostCount : ${resultPostList.postCount}")
+                    Log.d("API_RESULT", "PostList : ${resultPostList.postList}")
                 }
             }
 

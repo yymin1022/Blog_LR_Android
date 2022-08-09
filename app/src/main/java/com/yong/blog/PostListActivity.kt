@@ -20,7 +20,7 @@ class PostListActivity : ComponentActivity() {
         val postType = intent.getStringExtra("postType").toString()
 
         val postList = API.getServerPostList(postType)
-        Log.i("POST_LIST", "Count : ${postList.postCount} List : ${postList.postList}")
+        Log.d("POST_LIST", "Count : ${postList.postCount} List : ${postList.postList}")
 
         setContent {
             Blog_LR_AndroidTheme {

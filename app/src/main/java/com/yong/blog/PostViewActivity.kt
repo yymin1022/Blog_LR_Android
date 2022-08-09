@@ -21,7 +21,7 @@ class PostViewActivity : ComponentActivity() {
         val postType = intent.getStringExtra("postType").toString()
 
         val postData = API.getServerPostData(postType, postID)
-        Log.i("POST_DATA", "Title : ${postData.postTitle} URL : ${postData.postURL}")
+        Log.d("POST_DATA", "Title : ${postData.postTitle} URL : ${postData.postURL}")
 
         setContent {
             Blog_LR_AndroidTheme {
