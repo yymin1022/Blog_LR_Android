@@ -1,9 +1,9 @@
 package com.yong.blog.API
 
-class PostList {
-    var postCount = 0
-    var postList = List(0){PostListItem("", "", false, List(0){""}, "","")}
-}
+data class PostList(
+    var postCount: Int,
+    var postList: List<PostListItem>
+)
 
 data class PostListItem(
     val postDate: String,
