@@ -27,6 +27,9 @@ object API {
                     postTag = response.body()?.RESULT_DATA!!.PostTag
                     postTitle = response.body()?.RESULT_DATA!!.PostTitle
                     postURL = response.body()?.RESULT_DATA!!.PostURL
+
+                    Log.i("API RESULT", "PostTitle : ${postTitle}")
+                    Log.i("API RESULT", "PostUTL : ${postURL}")
                 }
             }
 
@@ -48,6 +51,9 @@ object API {
                 if(response.isSuccessful()){
                     postCount = response.body()?.RESULT_DATA!!.PostCount
                     postList = response.body()?.RESULT_DATA!!.PostList
+
+                    Log.i("API RESULT", "PostCount : ${postCount}")
+                    Log.i("API RESULT", "PostList : ${postList}")
                 }
             }
 
