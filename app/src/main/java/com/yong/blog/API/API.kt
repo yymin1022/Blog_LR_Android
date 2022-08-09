@@ -52,18 +52,18 @@ object RetrofitUtil {
         .build()
 }
 
-interface PostDataInterface {
+interface RetrofitInterface {
     @POST("/getPostData")
     fun getPostData(@Query("postType") postType: String,
-                   @Query("postID") postID: String): Call<PostDataResponse>
-}
+                   @Query("postID") postID: String):
+            Call<PostDataResponse>
 
-interface PostListInterface {
     @POST("/getPostList")
-    fun getPostList(@Query("postType") postType: String): Call<PostListResponse>
+    fun getPostList(@Query("postType") postType: String):
+            Call<PostListResponse>
 }
 
-data class PostDataResponse(
+data class PostDataResponse (
     val RESULT_CODE: Int,
     val RESULT_MSG: String,
     val RESULT_DATA: PostDataResponseData
