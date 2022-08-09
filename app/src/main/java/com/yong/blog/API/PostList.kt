@@ -1,8 +1,8 @@
 package com.yong.blog.API
 
 data class PostList(
-    var postCount: Int,
-    var postList: List<PostListItem>
+    val postCount: Int,
+    val postList: List<PostListItem>
 )
 
 data class PostListItem(

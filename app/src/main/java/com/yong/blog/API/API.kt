@@ -10,16 +10,21 @@ import retrofit2.http.Query
 
 object API {
     fun getServerPostData(postType: String, postID: String): PostData{
-        val curPostData = PostData()
+        var postDate = ""
+        var postIsPinned = false
+        var postTag = List(0){""}
+        var postTitle = ""
+        var postURL = ""
+
         val callGetPostList = RetrofitUtil.RetrofitService.getPostData(postType, postID)
         callGetPostList.enqueue(object : Callback<PostDataResponse>{
             override fun onResponse(call: Call<PostDataResponse>, response: Response<PostDataResponse>){
                 if(response.isSuccessful()){
-                    curPostData.postDate = response.body()?.RESULT_DATA!!.PostDate
-                    curPostData.postIsPinned = response.body()?.RESULT_DATA!!.PostIsPinned
-                    curPostData.postTag = response.body()?.RESULT_DATA!!.PostTag
-                    curPostData.postTitle = response.body()?.RESULT_DATA!!.PostTitle
-                    curPostData.postURL = response.body()?.RESULT_DATA!!.PostURL
+                    postDate = response.body()?.RESULT_DATA!!.PostDate
+                    postIsPinned = response.body()?.RESULT_DATA!!.PostIsPinned
+                    postTag = response.body()?.RESULT_DATA!!.PostTag
+                    postTitle = response.body()?.RESULT_DATA!!.PostTitle
+                    postURL = response.body()?.RESULT_DATA!!.PostURL
                 }
             }
 
@@ -28,13 +33,13 @@ object API {
             }
         })
 
-        return curPostData
+        return PostData(postDate, postIsPinned, postTag, postTitle, postURL)
     }
 
     fun getServerPostList(postType: String): PostList{
         var postCount = 0
         var postList = List(0){PostListItem("", "", false, List(0){""}, "", "")}
-        
+
         val callGetPostList = RetrofitUtil.RetrofitService.getPostList(postType)
         callGetPostList.enqueue(object : Callback<PostListResponse>{
             override fun onResponse(call: Call<PostListResponse>, response: Response<PostListResponse>){

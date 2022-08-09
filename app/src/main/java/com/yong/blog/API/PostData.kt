@@ -1,9 +1,9 @@
 package com.yong.blog.API
 
-class PostData {
-    var postDate = ""
-    var postIsPinned = false
-    var postTag = List(0){""}
-    var postTitle = ""
-    var postURL = ""
-}
+data class PostData(
+    val postDate: String,
+    val postIsPinned: Boolean,
+    val postTag: List<String>,
+    val postTitle: String,
+    val postURL: String
+)
