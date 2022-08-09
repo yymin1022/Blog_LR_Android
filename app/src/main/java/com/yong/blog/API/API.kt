@@ -15,11 +15,11 @@ object API {
         callGetPostList.enqueue(object : Callback<PostDataResponse>{
             override fun onResponse(call: Call<PostDataResponse>, response: Response<PostDataResponse>){
                 if(response.isSuccessful()){
-                    curPostData.postDate = response.body().RESULT_DATA.PostDate
-                    curPostData.postIsPinned = response.body().RESULT_DATA.PostIsPinned
-                    curPostData.postTag = response.body().RESULT_DATA.PostTag
-                    curPostData.postTitle = response.body().RESULT_DATA.PostTitle
-                    curPostData.postURL = response.body().RESULT_DATA.PostURL
+                    curPostData.postDate = response.body()?.RESULT_DATA!!.PostDate
+                    curPostData.postIsPinned = response.body()?.RESULT_DATA!!.PostIsPinned
+                    curPostData.postTag = response.body()?.RESULT_DATA!!.PostTag
+                    curPostData.postTitle = response.body()?.RESULT_DATA!!.PostTitle
+                    curPostData.postURL = response.body()?.RESULT_DATA!!.PostURL
                 }
             }
 
@@ -37,8 +37,8 @@ object API {
         callGetPostList.enqueue(object : Callback<PostListResponse>{
             override fun onResponse(call: Call<PostListResponse>, response: Response<PostListResponse>){
                 if(response.isSuccessful()){
-                    curPostList.postCount = response.body().RESULT_DATA.PostCount
-                    curPostList.postList = response.body().RESULT_DATA.PostList
+                    curPostList.postCount = response.body()?.RESULT_DATA!!.PostCount
+                    curPostList.postList = response.body()?.RESULT_DATA!!.PostList
                 }
             }
 
@@ -105,13 +105,4 @@ data class PostListResponse (
 data class PostListResponseData (
     val PostCount: Int,
     val PostList: List<PostListItem>
-)
-
-data class PostListItem (
-    val PostDate: String,
-    val PostID: String,
-    val PostIsPinned: Boolean,
-    val PostTag: List<String>,
-    val PostTitle: String,
-    val PostURL: String
 )
