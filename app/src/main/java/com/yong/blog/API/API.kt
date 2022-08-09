@@ -12,18 +12,23 @@ import retrofit2.http.Query
 
 object API {
     fun getServerPostData(postType: String, postID: String): PostData{
-        var postDate = "20220101"
-        var postIsPinned = false
-        var postTag = Array(0){}
-        var postTitle = "Test Post Title"
-        var postURL = "TEST_POST_URL"
-
         val curPostData = PostData()
-        curPostData.postDate = postDate
-        curPostData.postIsPinned = postIsPinned
-        curPostData.postTag = postTag
-        curPostData.postTitle = postTitle
-        curPostData.postURL = postURL
+        val callGetPostList = RetrofitUtil.RetrofitService.getPostData(postType, postID)
+        callGetPostList.enqueue(object : Callback<PostDataResponse>{
+            override fun onResponse(call: Call<PostDataResponse>, response: Response<PostDataResponse>){
+                if(response.isSuccessful()){
+                    curPostData.postDate = response.body().RESULT_DATA.PostDate
+                    curPostData.postIsPinned = response.body().RESULT_DATA.PostIsPinned
+                    curPostData.postTag = response.body().RESULT_DATA.PostTag
+                    curPostData.postTitle = response.body().RESULT_DATA.PostTitle
+                    curPostData.postURL = response.body().RESULT_DATA.PostURL
+                }
+            }
+
+            override fun onFailure(call: Call<PostDataResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
 
         return curPostData
     }
