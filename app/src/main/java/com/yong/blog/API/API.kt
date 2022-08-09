@@ -12,24 +12,20 @@ import retrofit2.http.POST
 
 object API {
     fun getServerPostData(postType: String, postID: String): PostData{
-        var postDate = ""
-        var postIsPinned = false
-        var postTag = List(0){""}
-        var postTitle = ""
-        var postURL = ""
+        val resultPostData = PostData("", false, List(0){""}, "", "")
 
         val callGetPostList = RetrofitUtil.RetrofitService.getPostData(PostDataRequest(postType, postID))
         callGetPostList.enqueue(object : Callback<PostDataResponse>{
             override fun onResponse(call: Call<PostDataResponse>, response: Response<PostDataResponse>){
                 if(response.isSuccessful()){
-                    postDate = response.body()?.RESULT_DATA!!.PostDate
-                    postIsPinned = response.body()?.RESULT_DATA!!.PostIsPinned
-                    postTag = response.body()?.RESULT_DATA!!.PostTag
-                    postTitle = response.body()?.RESULT_DATA!!.PostTitle
-                    postURL = response.body()?.RESULT_DATA!!.PostURL
+                    resultPostData.postDate = response.body()?.RESULT_DATA!!.PostDate
+                    resultPostData.postIsPinned = response.body()?.RESULT_DATA!!.PostIsPinned
+                    resultPostData.postTag = response.body()?.RESULT_DATA!!.PostTag
+                    resultPostData.postTitle = response.body()?.RESULT_DATA!!.PostTitle
+                    resultPostData.postURL = response.body()?.RESULT_DATA!!.PostURL
 
-                    Log.i("API RESULT", "PostTitle : ${postTitle}")
-                    Log.i("API RESULT", "PostUTL : ${postURL}")
+                    Log.i("API RESULT", "PostTitle : ${resultPostData.postTitle}")
+                    Log.i("API RESULT", "PostUTL : ${resultPostData.postURL}")
                 }
             }
 
@@ -38,7 +34,7 @@ object API {
             }
         })
 
-        return PostData(postDate, postIsPinned, postTag, postTitle, postURL)
+        return resultPostData
     }
 
     fun getServerPostList(postType: String): PostList{
