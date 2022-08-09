@@ -9,8 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
-import retrofit2.http.Query
-
 
 object API {
     fun getServerPostData(postType: String, postID: String): PostData{
@@ -33,7 +31,6 @@ object API {
             }
 
             override fun onFailure(call: Call<PostDataResponse>, t: Throwable) {
-                Log.e("API_START", call.request().toString())
                 Log.e("API_ERR", t.toString())
             }
         })
@@ -55,7 +52,6 @@ object API {
             }
 
             override fun onFailure(call: Call<PostListResponse>, t: Throwable) {
-                Log.e("API_START", call.request().toString())
                 Log.e("API_ERR", t.toString())
             }
         })
