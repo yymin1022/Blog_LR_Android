@@ -38,18 +38,17 @@ object API {
     }
 
     fun getServerPostList(postType: String): PostList{
-        var postCount = 0
-        var postList = List(0){PostListItem("", "", false, List(0){""}, "", "")}
+        var resultPostList = PostList(0, List(0){PostListItem("", "", false, List(0){""}, "", "")})
 
         val callGetPostList = RetrofitUtil.RetrofitService.getPostList(PostListRequest(postType))
         callGetPostList.enqueue(object : Callback<PostListResponse>{
             override fun onResponse(call: Call<PostListResponse>, response: Response<PostListResponse>){
                 if(response.isSuccessful()){
-                    postCount = response.body()?.RESULT_DATA!!.PostCount
-                    postList = response.body()?.RESULT_DATA!!.PostList
+                    resultPostList.postCount = response.body()?.RESULT_DATA!!.PostCount
+                    resultPostList.postList = response.body()?.RESULT_DATA!!.PostList
 
-                    Log.i("API RESULT", "PostCount : ${postCount}")
-                    Log.i("API RESULT", "PostList : ${postList}")
+                    Log.i("API RESULT", "PostCount : ${resultPostList.postCount}")
+                    Log.i("API RESULT", "PostList : ${resultPostList.postList}")
                 }
             }
 
@@ -58,7 +57,7 @@ object API {
             }
         })
 
-        return PostList(postCount, postList)
+        return resultPostList
     }
 
     fun getServerPostImage(postType: String, postID: String, srcID: String): String{
