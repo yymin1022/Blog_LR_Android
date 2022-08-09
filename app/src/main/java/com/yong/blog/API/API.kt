@@ -1,13 +1,13 @@
 package com.yong.blog.API
 
 import android.util.Log
-import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -20,7 +20,7 @@ object API {
         var postTitle = ""
         var postURL = ""
 
-        val callGetPostList = RetrofitUtil.RetrofitService.getPostData(postType, postID)
+        val callGetPostList = RetrofitUtil.RetrofitService.getPostData(PostDataRequest(postType, postID))
         callGetPostList.enqueue(object : Callback<PostDataResponse>{
             override fun onResponse(call: Call<PostDataResponse>, response: Response<PostDataResponse>){
                 if(response.isSuccessful()){
@@ -45,7 +45,7 @@ object API {
         var postCount = 0
         var postList = List(0){PostListItem("", "", false, List(0){""}, "", "")}
 
-        val callGetPostList = RetrofitUtil.RetrofitService.getPostList(postType)
+        val callGetPostList = RetrofitUtil.RetrofitService.getPostList(PostListRequest(postType))
         callGetPostList.enqueue(object : Callback<PostListResponse>{
             override fun onResponse(call: Call<PostListResponse>, response: Response<PostListResponse>){
                 if(response.isSuccessful()){
@@ -86,14 +86,18 @@ object RetrofitUtil {
 
 interface RetrofitInterface {
     @POST("/getPostData")
-    fun getPostData(@Query("postType") postType: String,
-                   @Query("postID") postID: String):
+    fun getPostData(@Body request: PostDataRequest):
             Call<PostDataResponse>
 
     @POST("/getPostList")
-    fun getPostList(@Query("postType") postType: String):
+    fun getPostList(@Body request: PostListRequest):
             Call<PostListResponse>
 }
+
+data class PostDataRequest (
+    val postType: String,
+    val postID: String
+)
 
 data class PostDataResponse (
     val RESULT_CODE: Int,
@@ -108,6 +112,10 @@ data class PostDataResponseData (
     val PostTag: List<String>,
     val PostTitle: String,
     val PostURL: String
+)
+
+data class PostListRequest (
+    val postType: String,
 )
 
 data class PostListResponse (
