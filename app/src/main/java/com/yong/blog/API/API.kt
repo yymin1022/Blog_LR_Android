@@ -1,5 +1,7 @@
 package com.yong.blog.API
 
+import android.util.Log
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -7,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.POST
 import retrofit2.http.Query
+
 
 object API {
     fun getServerPostData(postType: String, postID: String): PostData{
@@ -29,7 +32,7 @@ object API {
             }
 
             override fun onFailure(call: Call<PostDataResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("API_ERR", t.toString())
             }
         })
 
@@ -50,7 +53,7 @@ object API {
             }
 
             override fun onFailure(call: Call<PostListResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("API_ERR", t.toString())
             }
         })
 
