@@ -1,5 +1,8 @@
 package com.yong.blog.API
 
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 object API {
     fun getServerPostData(postType: String, postID: String): PostData{
         var postDate = "20220101"
@@ -34,4 +37,13 @@ object API {
 
         return curSrcData
     }
+}
+
+object RetrofitUtil {
+    val BASE_URL = "https://api.dev-lr.com"
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 }
