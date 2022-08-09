@@ -21,7 +21,7 @@ class PostViewActivity : ComponentActivity() {
         val postType = intent.getStringExtra("postType").toString()
 
         val postData = API.getServerPostData(postType, postID)
-        Log.i("POST DATA", "Title : ${postData.postTitle} URL : ${postData.postURL}")
+        Log.i("POST_DATA", "Title : ${postData.postTitle} URL : ${postData.postURL}")
 
         setContent {
             Blog_LR_AndroidTheme {
@@ -54,7 +54,7 @@ fun PostViewUI(postID: String, postType: String){
 @Composable
 fun PostViewContainer(postID: String, postType: String){
     Column {
-        Text("PostView - ID is $postID")
-        Text("PostView - Type is $postType")
+        Text("PostView - ID : $postID")
+        Text("PostView - Type : $postType")
     }
 }

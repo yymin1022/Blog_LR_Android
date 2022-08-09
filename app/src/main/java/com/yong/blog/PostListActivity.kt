@@ -20,7 +20,7 @@ class PostListActivity : ComponentActivity() {
         val postType = intent.getStringExtra("postType").toString()
 
         val postList = API.getServerPostList(postType)
-        Log.i("POST LIST", "Count : ${postList.postCount} List : ${postList.postList}")
+        Log.i("POST_LIST", "Count : ${postList.postCount} List : ${postList.postList}")
 
         setContent {
             Blog_LR_AndroidTheme {
@@ -52,5 +52,5 @@ fun PostListUI(postType: String) {
 
 @Composable
 fun PostItemContainer(postType: String) {
-    Text("PostView - Type is $postType")
+    Text("PostView - Type : $postType")
 }
