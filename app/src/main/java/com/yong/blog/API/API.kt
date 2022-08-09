@@ -71,10 +71,10 @@ data class PostListResponse (
 
 data class PostListResponseData (
     val PostCount: Int,
-    val PostList: List<PostItem>
+    val PostList: List<PostListItem>
 )
 
-data class PostItem (
+data class PostListItem (
     val PostDate: String,
     val PostID: String,
     val PostIsPinned: Boolean,
