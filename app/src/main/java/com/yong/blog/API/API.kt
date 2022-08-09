@@ -1,6 +1,9 @@
 package com.yong.blog.API
 
+import android.widget.Toast
 import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -26,12 +29,20 @@ object API {
     }
 
     fun getServerPostList(postType: String): PostList{
-        var postCount = 0
-        var postList = Array(0){}
-
         val curPostList = PostList()
-        curPostList.postCount = postCount
-        curPostList.postList = postList
+        val callGetPostList = RetrofitUtil.RetrofitService.getPostList(postType)
+        callGetPostList.enqueue(object : Callback<PostListResponse>{
+            override fun onResponse(call: Call<PostListResponse>, response: Response<PostListResponse>){
+                if(response.isSuccessful()){
+                    curPostList.postCount = response.body().RESULT_DATA.PostCount
+                    curPostList.postList = response.body().RESULT_DATA.PostList
+                }
+            }
+
+            override fun onFailure(call: Call<PostListResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
 
         return curPostList
     }
@@ -45,13 +56,15 @@ object API {
 
 object RetrofitUtil {
     private const val BASE_URL = "https://api.dev-lr.com"
-    
+
     private fun initRetrofit() =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(RetrofitInterface::class.java)
+
+    val RetrofitService = initRetrofit()
 }
 
 interface RetrofitInterface {
