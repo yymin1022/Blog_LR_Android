@@ -12,6 +12,10 @@ import androidx.compose.ui.Modifier
 
 import com.yong.blog.API.API
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class PostViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +24,10 @@ class PostViewActivity : ComponentActivity() {
         val postID = intent.getStringExtra("postID").toString()
         val postType = intent.getStringExtra("postType").toString()
 
-        val postData = API.getServerPostData(postType, postID)
-        Log.d("POST_DATA", "Title : ${postData.postTitle} URL : ${postData.postURL}")
+        CoroutineScope(Dispatchers.IO).launch{
+            val postData = API.getServerPostData(postType, postID)
+            Log.d("POST_DATA", "Title : ${postData.postTitle} URL : ${postData.postURL}")
+        }
 
         setContent {
             Blog_LR_AndroidTheme {

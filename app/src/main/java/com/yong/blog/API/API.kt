@@ -12,29 +12,14 @@ import retrofit2.http.POST
 
 object API {
     fun getServerPostData(postType: String, postID: String): PostData{
-        val resultPostData = PostData("", false, List(0){""}, "", "")
+        val result = RetrofitUtil.RetrofitService.getPostData(PostDataRequest(postType, postID)).execute().body()!!
+        val postDate = result.RESULT_DATA.PostDate
+        val postIsPinned = result.RESULT_DATA.PostIsPinned
+        val postTag = result.RESULT_DATA.PostTag
+        val postTitle = result.RESULT_DATA.PostTitle
+        val postURL = result.RESULT_DATA.PostURL
 
-        val callGetPostList = RetrofitUtil.RetrofitService.getPostData(PostDataRequest(postType, postID))
-        callGetPostList.enqueue(object : Callback<PostDataResponse>{
-            override fun onResponse(call: Call<PostDataResponse>, response: Response<PostDataResponse>){
-                if(response.isSuccessful()){
-                    resultPostData.postDate = response.body()?.RESULT_DATA!!.PostDate
-                    resultPostData.postIsPinned = response.body()?.RESULT_DATA!!.PostIsPinned
-                    resultPostData.postTag = response.body()?.RESULT_DATA!!.PostTag
-                    resultPostData.postTitle = response.body()?.RESULT_DATA!!.PostTitle
-                    resultPostData.postURL = response.body()?.RESULT_DATA!!.PostURL
-
-                    Log.d("API_RESULT", "PostTitle : ${resultPostData.postTitle}")
-                    Log.d("API_RESULT", "PostURL : ${resultPostData.postURL}")
-                }
-            }
-
-            override fun onFailure(call: Call<PostDataResponse>, t: Throwable) {
-                Log.e("API_ERR", t.toString())
-            }
-        })
-
-        return resultPostData
+        return PostData(postDate, postIsPinned, postTag, postTitle, postURL)
     }
 
     fun getServerPostList(postType: String): PostList{
