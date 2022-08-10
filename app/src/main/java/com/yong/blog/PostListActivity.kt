@@ -57,12 +57,12 @@ fun PostListUI(postList: PostList) {
 fun PostItemContainer(postList: PostList) {
     LazyColumn {
         itemsIndexed(postList.postList) {
-            index, item -> PostItem(item.postTitle, item.postID)
+            index, item -> PostItem(index, item.postTitle, item.postID)
         }
     }
 }
 
 @Composable
-fun PostItem(postTitle: String, postID: String) {
+fun PostItem(idx: Int, postTitle: String, postID: String) {
     Text("Post Item ${postID}")
 }
