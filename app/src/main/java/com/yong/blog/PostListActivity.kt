@@ -6,11 +6,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 import com.yong.blog.API.API
+import com.yong.blog.API.PostList
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 
 class PostListActivity : ComponentActivity() {
@@ -28,7 +30,7 @@ class PostListActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    PostListUI(postType)
+                    PostListUI(postList)
                 }
             }
         }
@@ -36,7 +38,7 @@ class PostListActivity : ComponentActivity() {
 }
 
 @Composable
-fun PostListUI(postType: String) {
+fun PostListUI(postList: PostList) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -45,12 +47,22 @@ fun PostListUI(postType: String) {
         }
     ) {
         Column {
-            PostItemContainer(postType)
+            PostItemContainer(postList)
         }
     }
 }
 
 @Composable
-fun PostItemContainer(postType: String) {
-    Text("PostView - Type : $postType")
+fun PostItemContainer(postList: PostList) {
+    LazyColumn {
+        item {
+            PostItem("TEST 1", "test1")
+            PostItem("TEST 2", "test2")
+        }
+    }
+}
+
+@Composable
+fun PostItem(postTitle: String, postID: String) {
+    Text("Post Item ${postID}")
 }
