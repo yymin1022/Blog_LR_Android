@@ -27,8 +27,8 @@ class PostListActivity : ComponentActivity() {
         val postType = intent.getStringExtra("postType").toString()
 
         CoroutineScope(Dispatchers.IO).launch{
-            val postList = async { API.getServerPostList(postType) }
-            Log.d("POST_LIST", "Count : ${postList.await().postCount} List : ${postList.await().postList}")
+            val postList = async { API.getServerPostList(postType) }.await()
+            Log.d("POST_LIST", "Count : ${postList.postCount} List : ${postList.postList}")
         }
 
         setContent {
