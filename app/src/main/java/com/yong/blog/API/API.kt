@@ -38,17 +38,11 @@ object API {
     }
 
     fun getServerPostList(postType: String): PostList{
-        var resultPostList = PostList(0, List(0){PostListItem("", "", false, List(0){""}, "", "")})
+        val result = RetrofitUtil.RetrofitService.getPostList(PostListRequest(postType)).execute().body()!!
+        val postCount = result.RESULT_DATA.PostCount
+        val postList = result.RESULT_DATA.PostList
 
-        val callGetPostList = RetrofitUtil.RetrofitService.getPostList(PostListRequest(postType))
-        val result = callGetPostList.execute().body()!!
-        resultPostList.postCount = result.RESULT_DATA.PostCount
-        resultPostList.postList = result.RESULT_DATA.PostList
-
-        Log.d("API_RESULT", "PostCount : ${resultPostList.postCount}")
-        Log.d("API_RESULT", "PostList : ${resultPostList.postList}")
-
-        return resultPostList
+        return PostList(postCount, postList)
     }
 
     fun getServerPostImage(postType: String, postID: String, srcID: String): String{
