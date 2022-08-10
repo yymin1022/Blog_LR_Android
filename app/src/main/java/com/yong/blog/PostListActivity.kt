@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -55,9 +56,8 @@ fun PostListUI(postList: PostList) {
 @Composable
 fun PostItemContainer(postList: PostList) {
     LazyColumn {
-        item {
-            PostItem("TEST 1", "test1")
-            PostItem("TEST 2", "test2")
+        itemsIndexed(postList.postList) {
+            index, item -> PostItem(item.postTitle, item.postID)
         }
     }
 }
