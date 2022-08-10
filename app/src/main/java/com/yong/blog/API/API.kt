@@ -1,9 +1,6 @@
 package com.yong.blog.API
 
-import android.util.Log
 import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -48,7 +45,7 @@ object RetrofitUtil {
             .build()
             .create(RetrofitInterface::class.java)
 
-    val RetrofitService = initRetrofit()
+    val RetrofitService: RetrofitInterface = initRetrofit()
 }
 
 interface RetrofitInterface {
