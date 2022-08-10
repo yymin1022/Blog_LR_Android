@@ -15,6 +15,10 @@ import androidx.compose.ui.Modifier
 import com.yong.blog.API.API
 import com.yong.blog.API.PostList
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class PostListActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +26,10 @@ class PostListActivity : ComponentActivity() {
 
         val postType = intent.getStringExtra("postType").toString()
 
-        val postList = API.getServerPostList(postType)
-        Log.d("POST_LIST", "Count : ${postList.postCount} List : ${postList.postList}")
+        CoroutineScope(Dispatchers.IO).launch{
+            val postList = async { API.getServerPostList(postType) }
+            Log.d("POST_LIST", "Count : ${postList.await().postCount} List : ${postList.await().postList}")
+        }
 
         setContent {
             Blog_LR_AndroidTheme {
@@ -31,7 +37,7 @@ class PostListActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    PostListUI(postList)
+//                    PostListUI(postList)
                 }
             }
         }

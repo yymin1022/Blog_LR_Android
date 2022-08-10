@@ -41,21 +41,12 @@ object API {
         var resultPostList = PostList(0, List(0){PostListItem("", "", false, List(0){""}, "", "")})
 
         val callGetPostList = RetrofitUtil.RetrofitService.getPostList(PostListRequest(postType))
-        callGetPostList.enqueue(object : Callback<PostListResponse>{
-            override fun onResponse(call: Call<PostListResponse>, response: Response<PostListResponse>){
-                if(response.isSuccessful()){
-                    resultPostList.postCount = response.body()?.RESULT_DATA!!.PostCount
-                    resultPostList.postList = response.body()?.RESULT_DATA!!.PostList
+        val result = callGetPostList.execute().body()!!
+        resultPostList.postCount = result.RESULT_DATA.PostCount
+        resultPostList.postList = result.RESULT_DATA.PostList
 
-                    Log.d("API_RESULT", "PostCount : ${resultPostList.postCount}")
-                    Log.d("API_RESULT", "PostList : ${resultPostList.postList}")
-                }
-            }
-
-            override fun onFailure(call: Call<PostListResponse>, t: Throwable) {
-                Log.e("API_ERR", t.toString())
-            }
-        })
+        Log.d("API_RESULT", "PostCount : ${resultPostList.postCount}")
+        Log.d("API_RESULT", "PostList : ${resultPostList.postList}")
 
         return resultPostList
     }
