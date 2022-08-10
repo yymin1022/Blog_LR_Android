@@ -25,7 +25,7 @@ class PostViewActivity : ComponentActivity() {
         val postType = intent.getStringExtra("postType").toString()
 
         CoroutineScope(Dispatchers.IO).launch{
-            val postData = API.getServerPostData(postType, postID)
+            val postData = async { API.getServerPostData(postType, postID) }.await()
             Log.d("POST_DATA", "Title : ${postData.postTitle} URL : ${postData.postURL}")
         }
 
