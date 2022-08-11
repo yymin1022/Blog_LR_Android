@@ -28,11 +28,6 @@ class PostListActivity : ComponentActivity() {
 
         val postType = intent.getStringExtra("postType").toString()
 
-        CoroutineScope(Dispatchers.IO).launch{
-            val postList = async { API.getServerPostList(postType) }.await()
-            Log.d("POST_LIST", "Count : ${postList.postCount} List : ${postList.postList}")
-        }
-
         setContent {
             Blog_LR_AndroidTheme {
                 Surface(
@@ -67,7 +62,7 @@ fun PostListContainer(postType: String) {
     LaunchedEffect(Unit) {
         CoroutineScope(Dispatchers.IO).launch{
             postList = async { API.getServerPostList(postType) }.await()
-            Log.d("DEBUG", postList.toString())
+            Log.d("POST_LIST", postList.toString())
         }
     }
     PostItemContainer(postList)
