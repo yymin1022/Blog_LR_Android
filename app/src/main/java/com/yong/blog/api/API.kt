@@ -1,4 +1,4 @@
-package com.yong.blog.API
+package com.yong.blog.api
 
 import retrofit2.Call
 import retrofit2.Retrofit

@@ -1,4 +1,4 @@
-package com.yong.blog.API
+package com.yong.blog.api
 
 data class PostList(
     var postCount: Int,
