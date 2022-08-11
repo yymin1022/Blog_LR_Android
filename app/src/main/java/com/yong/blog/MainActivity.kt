@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.yong.blog.ui.theme.*
 
-class MainActivity : ComponentActivity() {
+class MainActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -39,15 +39,15 @@ fun MainUI() {
         }
     ) {
         Column {
-            MainTitle()
-            MainButtons()
+            MainTitleContainer()
+            MainButtonContainer()
         }
 
     }
 }
 
 @Composable
-fun MainButtons() {
+fun MainButtonContainer() {
     val context = LocalContext.current
     Column {
         MainButtonItem("Blog") {
@@ -87,7 +87,7 @@ fun MainButtonItem(text: String, action: () -> Unit) {
 }
 
 @Composable
-fun MainTitle() {
+fun MainTitleContainer() {
     Column {
         MainTitleText("안녕하세요", false)
         MainTitleText("대학생 1인개발자", true)
