@@ -12,14 +12,11 @@ import androidx.compose.ui.Modifier
 
 import com.yong.blog.API.API
 import com.yong.blog.API.PostData
-import com.yong.blog.API.PostList
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import java.util.Arrays.toString
-import java.util.Objects.toString
 
 class PostViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +39,7 @@ class PostViewActivity : ComponentActivity() {
 }
 
 @Composable
-fun PostViewUI(postID: String, postType: String){
+fun PostViewUI(postID: String, postType: String) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -69,7 +66,7 @@ fun PostViewContainer(postID: String, postType: String) {
 }
 
 @Composable
-fun PostViewCompose(postData: PostData){
+fun PostViewCompose(postData: PostData) {
     Column {
         Text("PostView - Title : ${postData.postTitle}")
     }
