@@ -1,6 +1,7 @@
 package com.yong.blog.API
 
 data class PostData(
+    var postContent: String,
     var postDate: String,
     var postIsPinned: Boolean,
     var postTag: List<String>,
