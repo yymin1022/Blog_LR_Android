@@ -68,5 +68,8 @@ fun PostViewContainer(postID: String, postType: String) {
 fun PostViewCompose(postData: PostData) {
     Column {
         Text("PostView - Title : ${postData.postTitle}")
+        Text("PostView - Date : ${postData.postDate}")
+        Text("PostView - Tag : ${postData.postTag}")
+        Text("PostView - Content : ${postData.postContent}")
     }
 }
