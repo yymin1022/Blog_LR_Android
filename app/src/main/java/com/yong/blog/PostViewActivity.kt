@@ -58,7 +58,7 @@ fun PostViewUI(postID: String, postType: String){
 
 @Composable
 fun PostViewContainer(postID: String, postType: String) {
-    var postData: PostData by remember { mutableStateOf(PostData("", false, emptyList(), "", "")) }
+    var postData: PostData by remember { mutableStateOf(PostData("", "", false, emptyList(), "", "")) }
     LaunchedEffect(Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             postData = async { API.getServerPostData(postType, postID) }.await()
