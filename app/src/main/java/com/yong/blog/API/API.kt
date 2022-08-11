@@ -8,7 +8,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 object API {
-    fun getServerPostData(postType: String, postID: String): PostData{
+    fun getServerPostData(postType: String, postID: String): PostData {
         val result = RetrofitUtil.RetrofitService.getPostData(PostDataRequest(postType, postID)).execute().body()!!
         val postContent = result.RESULT_DATA.PostContent
         val postDate = result.RESULT_DATA.PostDate
@@ -20,7 +20,7 @@ object API {
         return PostData(postContent, postDate, postIsPinned, postTag, postTitle, postURL)
     }
 
-    fun getServerPostList(postType: String): PostList{
+    fun getServerPostList(postType: String): PostList {
         val result = RetrofitUtil.RetrofitService.getPostList(PostListRequest(postType)).execute().body()!!
         val postCount = result.RESULT_DATA.PostCount
         val postList = result.RESULT_DATA.PostList
@@ -28,7 +28,7 @@ object API {
         return PostList(postCount, postList)
     }
 
-    fun getServerPostImage(postType: String, postID: String, srcID: String): String{
+    fun getServerPostImage(postType: String, postID: String, srcID: String): String {
         val curSrcData = "TEST_SRC"
 
         return curSrcData
@@ -59,18 +59,18 @@ interface RetrofitInterface {
             Call<PostListResponse>
 }
 
-data class PostDataRequest (
+data class PostDataRequest(
     val postType: String,
     val postID: String
 )
 
-data class PostDataResponse (
+data class PostDataResponse(
     val RESULT_CODE: Int,
     val RESULT_MSG: String,
     val RESULT_DATA: PostDataResponseData
 )
 
-data class PostDataResponseData (
+data class PostDataResponseData(
     val PostContent: String,
     val PostDate: String,
     val PostIsPinned: Boolean,
@@ -79,17 +79,17 @@ data class PostDataResponseData (
     val PostURL: String
 )
 
-data class PostListRequest (
+data class PostListRequest(
     val postType: String,
 )
 
-data class PostListResponse (
+data class PostListResponse(
     val RESULT_CODE: Int,
     val RESULT_MSG: String,
     val RESULT_DATA: PostListResponseData
 )
 
-data class PostListResponseData (
+data class PostListResponseData(
     val PostCount: Int,
     val PostList: List<PostListItem>
 )
