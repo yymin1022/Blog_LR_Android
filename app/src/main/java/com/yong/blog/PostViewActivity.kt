@@ -59,7 +59,6 @@ fun PostViewContainer(postID: String, postType: String) {
     LaunchedEffect(Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             postData = async { API.getServerPostData(postType, postID) }.await()
-            Log.d("POST_DATA", postData.toString())
         }
     }
     PostViewCompose(postData)
