@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 import com.yong.blog.API.API
+import com.yong.blog.API.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -62,5 +63,12 @@ fun PostViewContainer(postID: String, postType: String){
     Column {
         Text("PostView - ID : $postID")
         Text("PostView - Type : $postType")
+    }
+}
+
+@Composable
+fun PostViewCompose(postData: PostData){
+    Column {
+        Text("PostView - Title : ${postData.postTitle}")
     }
 }
