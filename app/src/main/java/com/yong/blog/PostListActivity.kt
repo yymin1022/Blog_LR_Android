@@ -1,9 +1,14 @@
+@file:OptIn(ExperimentalMaterialApi::class)
+
 package com.yong.blog
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.border
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -11,6 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.yong.blog.api.API
 import com.yong.blog.api.PostList
@@ -82,12 +88,19 @@ fun PostItemContainer(postType: String, postList: PostList) {
 
 @Composable
 fun PostItemPinned(idx: Int, postItem: PostListItem, postType: String) {
+    val context = LocalContext.current
     Card(
-        Modifier
+        modifier = Modifier
             .border(width = 2.dp, color = Color.LightGray)
             .fillMaxWidth()
             .height(50.dp)
-            .padding(12.dp)
+            .padding(12.dp),
+        onClick = {
+            val intent = Intent(context, PostViewActivity::class.java)
+            intent.putExtra("postID", postItem.postID)
+            intent.putExtra("postType", postType)
+            context.startActivity(intent)
+        }
     ) {
         Text("!!Pinned $idx. ${postItem.postTitle}")
     }
@@ -95,12 +108,19 @@ fun PostItemPinned(idx: Int, postItem: PostListItem, postType: String) {
 
 @Composable
 fun PostItem(idx: Int, postItem: PostListItem, postType: String) {
+    val context = LocalContext.current
     Card(
-        Modifier
+        modifier = Modifier
             .border(width = 2.dp, color = Color.LightGray)
             .fillMaxWidth()
             .height(50.dp)
-            .padding(12.dp)
+            .padding(12.dp),
+        onClick = {
+            val intent = Intent(context, PostViewActivity::class.java)
+            intent.putExtra("postID", postItem.postID)
+            intent.putExtra("postType", postType)
+            context.startActivity(intent)
+        }
     ) {
         Text("$idx. ${postItem.postTitle}")
     }
