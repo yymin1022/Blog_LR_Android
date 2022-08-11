@@ -3,13 +3,15 @@ package com.yong.blog
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import com.yong.blog.api.API
 import com.yong.blog.api.PostList
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
@@ -79,10 +81,26 @@ fun PostItemContainer(postList: PostList) {
 
 @Composable
 fun PostItemPinned(idx: Int, postTitle: String, postID: String) {
-    Text("!!Pinned $idx. $postTitle")
+    Card(
+        Modifier
+            .border(width = 2.dp, color = Color.LightGray)
+            .fillMaxWidth()
+            .height(50.dp)
+            .padding(12.dp)
+    ) {
+        Text("!!Pinned $idx. $postTitle")
+    }
 }
 
 @Composable
 fun PostItem(idx: Int, postTitle: String, postID: String) {
-    Text("$idx. $postTitle")
+    Card(
+        Modifier
+            .border(width = 2.dp, color = Color.LightGray)
+            .fillMaxWidth()
+            .height(50.dp)
+            .padding(12.dp)
+    ) {
+        Text("$idx. $postTitle")
+    }
 }
