@@ -10,13 +10,14 @@ import retrofit2.http.POST
 object API {
     fun getServerPostData(postType: String, postID: String): PostData{
         val result = RetrofitUtil.RetrofitService.getPostData(PostDataRequest(postType, postID)).execute().body()!!
+        val postContent = result.RESULT_DATA.PostContent
         val postDate = result.RESULT_DATA.PostDate
         val postIsPinned = result.RESULT_DATA.PostIsPinned
         val postTag = result.RESULT_DATA.PostTag
         val postTitle = result.RESULT_DATA.PostTitle
         val postURL = result.RESULT_DATA.PostURL
 
-        return PostData(postDate, postIsPinned, postTag, postTitle, postURL)
+        return PostData(postContent, postDate, postIsPinned, postTag, postTitle, postURL)
     }
 
     fun getServerPostList(postType: String): PostList{
