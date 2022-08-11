@@ -7,16 +7,19 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 
 import com.yong.blog.API.API
 import com.yong.blog.API.PostData
+import com.yong.blog.API.PostList
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.util.Arrays.toString
+import java.util.Objects.toString
 
 class PostViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,11 +62,15 @@ fun PostViewUI(postID: String, postType: String){
 }
 
 @Composable
-fun PostViewContainer(postID: String, postType: String){
-    Column {
-        Text("PostView - ID : $postID")
-        Text("PostView - Type : $postType")
+fun PostViewContainer(postID: String, postType: String) {
+    var postData: PostData by remember { mutableStateOf(PostData("", false, emptyList(), "", "")) }
+    LaunchedEffect(Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            postData = async { API.getServerPostData(postType, postID) }.await()
+            Log.d("POST_DATA", postData.toString())
+        }
     }
+    PostViewCompose(postData)
 }
 
 @Composable
