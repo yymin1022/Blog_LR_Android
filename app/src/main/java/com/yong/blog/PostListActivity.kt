@@ -14,8 +14,6 @@ import androidx.compose.ui.Modifier
 
 import com.yong.blog.API.API
 import com.yong.blog.API.PostList
-import com.yong.blog.API.PostListItem
-import com.yong.blog.API.PostListRequest
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,7 +58,7 @@ fun PostListUI(postType: String) {
 fun PostListContainer(postType: String) {
     var postList: PostList by remember { mutableStateOf(PostList(0, emptyList())) }
     LaunchedEffect(Unit) {
-        CoroutineScope(Dispatchers.IO).launch{
+        CoroutineScope(Dispatchers.IO).launch {
             postList = async { API.getServerPostList(postType) }.await()
             Log.d("POST_LIST", postList.toString())
         }
