@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.yong.blog.api.API
 import com.yong.blog.api.PostList
+import com.yong.blog.api.PostListItem
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -64,23 +65,23 @@ fun PostListContainer(postType: String) {
             }
         }
     }
-    PostItemContainer(postList)
+    PostItemContainer(postType, postList)
 }
 
 @Composable
-fun PostItemContainer(postList: PostList) {
+fun PostItemContainer(postType: String, postList: PostList) {
     LazyColumn {
         itemsIndexed(postList.postList) {
-            index, item -> if(item.postIsPinned) PostItemPinned(index, item.postTitle, item.postID)
+            index, item -> if(item.postIsPinned) PostItemPinned(index, item, postType)
         }
         itemsIndexed(postList.postList) {
-            index, item -> if(!item.postIsPinned) PostItem(index, item.postTitle, item.postID)
+            index, item -> if(!item.postIsPinned) PostItem(index, item, postType)
         }
     }
 }
 
 @Composable
-fun PostItemPinned(idx: Int, postTitle: String, postID: String) {
+fun PostItemPinned(idx: Int, postItem: PostListItem, postType: String) {
     Card(
         Modifier
             .border(width = 2.dp, color = Color.LightGray)
@@ -88,12 +89,12 @@ fun PostItemPinned(idx: Int, postTitle: String, postID: String) {
             .height(50.dp)
             .padding(12.dp)
     ) {
-        Text("!!Pinned $idx. $postTitle")
+        Text("!!Pinned $idx. ${postItem.postTitle}")
     }
 }
 
 @Composable
-fun PostItem(idx: Int, postTitle: String, postID: String) {
+fun PostItem(idx: Int, postItem: PostListItem, postType: String) {
     Card(
         Modifier
             .border(width = 2.dp, color = Color.LightGray)
@@ -101,6 +102,6 @@ fun PostItem(idx: Int, postTitle: String, postID: String) {
             .height(50.dp)
             .padding(12.dp)
     ) {
-        Text("$idx. $postTitle")
+        Text("$idx. ${postItem.postTitle}")
     }
 }
