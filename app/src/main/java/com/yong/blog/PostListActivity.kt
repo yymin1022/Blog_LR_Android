@@ -10,14 +10,13 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-
 import com.yong.blog.api.API
 import com.yong.blog.api.PostList
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PostListActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +57,9 @@ fun PostListContainer(postType: String) {
     var postList: PostList by remember { mutableStateOf(PostList(0, emptyList())) }
     LaunchedEffect(Unit) {
         CoroutineScope(Dispatchers.IO).launch {
-            postList = async { API.getServerPostList(postType) }.await()
+            postList = withContext(Dispatchers.Default) {
+                API.getServerPostList(postType)
+            }
         }
     }
     PostItemContainer(postList)
