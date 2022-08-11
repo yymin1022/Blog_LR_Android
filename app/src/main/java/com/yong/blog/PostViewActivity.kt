@@ -28,11 +28,6 @@ class PostViewActivity : ComponentActivity() {
         val postID = intent.getStringExtra("postID").toString()
         val postType = intent.getStringExtra("postType").toString()
 
-        CoroutineScope(Dispatchers.IO).launch{
-            val postData = async { API.getServerPostData(postType, postID) }.await()
-            Log.d("POST_DATA", "Title : ${postData.postTitle} URL : ${postData.postURL}")
-        }
-
         setContent {
             Blog_LR_AndroidTheme {
                 Surface(
