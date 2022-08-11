@@ -69,12 +69,19 @@ fun PostListContainer(postType: String) {
 fun PostItemContainer(postList: PostList) {
     LazyColumn {
         itemsIndexed(postList.postList) {
-            index, item -> /* if(!item.postIsPinned) */ PostItem(index, item.postTitle, item.postID)
+            index, item -> if(item.postIsPinned) PostItem(index, item.postTitle, item.postID, item.postIsPinned)
+        }
+        itemsIndexed(postList.postList) {
+            index, item -> if(!item.postIsPinned) PostItem(index, item.postTitle, item.postID, item.postIsPinned)
         }
     }
 }
 
 @Composable
-fun PostItem(idx: Int, postTitle: String, postID: String) {
-    Text("$idx. $postTitle")
+fun PostItem(idx: Int, postTitle: String, postID: String, isPinned: Boolean) {
+    if(isPinned){
+        Text("!!Pinned $idx. $postTitle")
+    }else{
+        Text("$idx. $postTitle")
+    }
 }
