@@ -9,11 +9,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 
 import com.yong.blog.API.API
 import com.yong.blog.API.PostList
+import com.yong.blog.API.PostListItem
+import com.yong.blog.API.PostListRequest
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +39,7 @@ class PostListActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-//                    PostListUI(postList)
+                    PostListUI(postType)
                 }
             }
         }
@@ -45,7 +47,7 @@ class PostListActivity : ComponentActivity() {
 }
 
 @Composable
-fun PostListUI(postList: PostList) {
+fun PostListUI(postType: String) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -54,21 +56,33 @@ fun PostListUI(postList: PostList) {
         }
     ) {
         Column {
-            PostItemContainer(postList)
+            PostListContainer(postType)
         }
     }
+}
+
+@Composable
+fun PostListContainer(postType: String) {
+    var postList: PostList by remember { mutableStateOf(PostList(0, emptyList())) }
+    LaunchedEffect(Unit) {
+        CoroutineScope(Dispatchers.IO).launch{
+            postList = async { API.getServerPostList(postType) }.await()
+            Log.d("DEBUG", postList.toString())
+        }
+    }
+    PostItemContainer(postList)
 }
 
 @Composable
 fun PostItemContainer(postList: PostList) {
     LazyColumn {
         itemsIndexed(postList.postList) {
-            index, item -> PostItem(index, item.postTitle, item.postID)
+            index, item -> if(!item.postIsPinned) PostItem(index, item.postTitle, item.postID)
         }
     }
 }
 
 @Composable
 fun PostItem(idx: Int, postTitle: String, postID: String) {
-    Text("Post Item ${postID}")
+    Text("${postID} - ${postTitle}")
 }
