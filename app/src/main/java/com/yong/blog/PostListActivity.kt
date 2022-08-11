@@ -1,7 +1,6 @@
 package com.yong.blog
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -76,5 +75,5 @@ fun PostItemContainer(postList: PostList) {
 
 @Composable
 fun PostItem(idx: Int, postTitle: String, postID: String) {
-    Text("${postID} - ${postTitle}")
+    Text("$idx. $postTitle")
 }
