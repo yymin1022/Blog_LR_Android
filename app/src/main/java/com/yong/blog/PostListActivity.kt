@@ -2,6 +2,7 @@
 
 package com.yong.blog
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -95,12 +96,7 @@ fun PostItemPinned(idx: Int, postItem: PostListItem, postType: String) {
             .fillMaxWidth()
             .height(50.dp)
             .padding(12.dp),
-        onClick = {
-            val intent = Intent(context, PostViewActivity::class.java)
-            intent.putExtra("postID", postItem.postID)
-            intent.putExtra("postType", postType)
-            context.startActivity(intent)
-        }
+        onClick = { onPostItemClicked(postItem.postID, postType, context) }
     ) {
         Text("!!Pinned $idx. ${postItem.postTitle}")
     }
@@ -115,13 +111,15 @@ fun PostItem(idx: Int, postItem: PostListItem, postType: String) {
             .fillMaxWidth()
             .height(50.dp)
             .padding(12.dp),
-        onClick = {
-            val intent = Intent(context, PostViewActivity::class.java)
-            intent.putExtra("postID", postItem.postID)
-            intent.putExtra("postType", postType)
-            context.startActivity(intent)
-        }
+        onClick = { onPostItemClicked(postItem.postID, postType, context) }
     ) {
         Text("$idx. ${postItem.postTitle}")
     }
+}
+
+fun onPostItemClicked(postID: String, postType: String, context: Context){
+    val intent = Intent(context, PostViewActivity::class.java)
+    intent.putExtra("postID", postID)
+    intent.putExtra("postType", postType)
+    context.startActivity(intent)
 }
