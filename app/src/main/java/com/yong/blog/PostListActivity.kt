@@ -60,7 +60,6 @@ fun PostListContainer(postType: String) {
     LaunchedEffect(Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             postList = async { API.getServerPostList(postType) }.await()
-            Log.d("POST_LIST", postList.toString())
         }
     }
     PostItemContainer(postList)
@@ -70,7 +69,7 @@ fun PostListContainer(postType: String) {
 fun PostItemContainer(postList: PostList) {
     LazyColumn {
         itemsIndexed(postList.postList) {
-            index, item -> if(!item.postIsPinned) PostItem(index, item.postTitle, item.postID)
+            index, item -> /* if(!item.postIsPinned) */ PostItem(index, item.postTitle, item.postID)
         }
     }
 }
