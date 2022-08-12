@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterialApi::class)
-
 package com.yong.blog
 
 import android.content.Context
@@ -8,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -93,8 +92,8 @@ fun PostItemPinned(idx: Int, postItem: PostListItem, postType: String) {
             .border(width = 2.dp, color = Color.LightGray)
             .fillMaxWidth()
             .height(50.dp)
-            .padding(12.dp),
-        onClick = { onPostItemClicked(postItem.postID, postType, context) }
+            .padding(12.dp)
+            .clickable { onPostItemClicked(postItem.postID, postType, context) },
     ) {
         Text("!!Pinned $idx. ${postItem.postTitle}")
     }
@@ -108,8 +107,8 @@ fun PostItem(idx: Int, postItem: PostListItem, postType: String) {
             .border(width = 2.dp, color = Color.LightGray)
             .fillMaxWidth()
             .height(50.dp)
-            .padding(12.dp),
-        onClick = { onPostItemClicked(postItem.postID, postType, context) }
+            .padding(12.dp)
+            .clickable { onPostItemClicked(postItem.postID, postType, context) },
     ) {
         Text("$idx. ${postItem.postTitle}")
     }
