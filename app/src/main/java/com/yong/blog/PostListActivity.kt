@@ -92,7 +92,6 @@ fun PostItemPinned(idx: Int, postItem: PostListItem, postType: String) {
             .border(width = 2.dp, color = Color.LightGray)
             .fillMaxWidth()
             .height(50.dp)
-            .padding(12.dp)
             .clickable { onPostItemClicked(postItem.postID, postType, context) },
     ) {
         Text("!!Pinned $idx. ${postItem.postTitle}")
@@ -107,7 +106,6 @@ fun PostItem(idx: Int, postItem: PostListItem, postType: String) {
             .border(width = 2.dp, color = Color.LightGray)
             .fillMaxWidth()
             .height(50.dp)
-            .padding(12.dp)
             .clickable { onPostItemClicked(postItem.postID, postType, context) },
     ) {
         Text("$idx. ${postItem.postTitle}")
