@@ -74,7 +74,10 @@ fun PostListContainer(postType: String) {
 
 @Composable
 fun PostItemContainer(postType: String, postList: PostList) {
-    LazyColumn {
+    LazyColumn(
+        modifier = Modifier
+            .padding(10.dp)
+    ) {
         itemsIndexed(postList.postList) {
             index, item -> if(item.postIsPinned) PostItemPinned(index, item, postType)
         }
