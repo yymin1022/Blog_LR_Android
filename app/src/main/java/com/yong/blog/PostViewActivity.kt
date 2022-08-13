@@ -88,7 +88,9 @@ fun PostViewCompose(postData: PostData) {
             PostViewDate(postData.postDate)
         }
 
-        Divider()
+        Divider(
+            color = Color.LightGray
+        )
 
         PostViewContent(postData.postContent)
         PostViewTag(postData.postTag)
