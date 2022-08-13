@@ -120,7 +120,7 @@ fun PostItemImage(postID: String, postType: String) {
 fun PostItemData(postItem: PostListItem) {
     Column(
         modifier = Modifier
-            .padding(5.dp)
+            .padding(7.dp)
     ) {
         PostItemDataTitle(postItem.postTitle)
         PostItemDataDate(postItem.postDate)
@@ -158,6 +158,8 @@ fun PostItemDataTag(postTag: List<String>) {
 fun PostItemDataTitle(postTitle: String) {
     Text(
         text = postTitle,
+        modifier = Modifier
+            .height(45.dp),
         style = TextStyle(
             color = BlogBlue500,
             fontSize = 18.sp,
