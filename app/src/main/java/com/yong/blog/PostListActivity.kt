@@ -107,7 +107,21 @@ fun PostItem(idx: Int, postItem: PostListItem, postType: String) {
             .height(100.dp)
             .clickable { onPostItemClicked(postItem.postID, postType, context) },
     ) {
-        Text("$idx. ${postItem.postTitle}")
+        Row {
+            PostItemImage(postItem.postID, postType)
+            Text("$idx. ${postItem.postTitle}")
+        }
+    }
+}
+
+@Composable
+fun PostItemImage(postID: String, postType: String) {
+    Box(
+        modifier = Modifier
+            .height(100.dp)
+            .width(100.dp)
+    ) {
+        Text("IMAGE")
     }
 }
 
