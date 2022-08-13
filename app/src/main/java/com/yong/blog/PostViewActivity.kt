@@ -96,15 +96,15 @@ fun PostViewContent(postContent: String) {
 
 @Composable
 fun PostViewDate(postDate: String) {
-    Text("Date : $postDate")
+    Text(postDate)
 }
 
 @Composable
 fun PostViewTag(postTag: List<String>) {
-    Text("Tag : $postTag")
+    Text(postTag.toString())
 }
 
 @Composable
 fun PostViewTitle(postTitle: String) {
-    Text("Title\n$postTitle")
+    Text(postTitle)
 }
