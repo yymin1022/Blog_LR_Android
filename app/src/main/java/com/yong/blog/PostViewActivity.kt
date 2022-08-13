@@ -75,7 +75,7 @@ fun PostViewContainer(postID: String, postType: String) {
 fun PostViewCompose(postData: PostData) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
         PostViewTitle(postData.postTitle)
 
@@ -84,6 +84,8 @@ fun PostViewCompose(postData: PostData) {
             Text(" | ")
             PostViewDate(postData.postDate)
         }
+
+        Divider()
 
         PostViewContent(postData.postContent)
         PostViewTag(postData.postTag)
