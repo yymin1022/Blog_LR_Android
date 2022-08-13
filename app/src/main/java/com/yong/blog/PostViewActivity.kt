@@ -23,6 +23,7 @@ import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import io.noties.markwon.Markwon
+import io.noties.markwon.html.HtmlPlugin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -107,6 +108,7 @@ fun PostViewCompose(postData: PostData) {
 fun PostViewContent(postContent: String) {
     val ctx = LocalContext.current
     val markwon: Markwon = Markwon.builder(ctx)
+        .usePlugin(HtmlPlugin.create())
         .build()
 
     AndroidView(
