@@ -3,6 +3,7 @@ package com.yong.blog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.border
@@ -13,7 +14,9 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -91,16 +94,21 @@ fun PostItemContainer(postType: String, postList: PostList) {
 @Composable
 fun PostItem(idx: Int, postItem: PostListItem, postType: String) {
     val context = LocalContext.current
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .clickable { onPostItemClicked(postItem.postID, postType, context) },
-    ) {
-        Row {
-            PostItemImage(postItem.postID, postType)
-            PostItemData(postItem)
+    Column {
+        Spacer(Modifier.height(5.dp))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp)
+                .shadow(3.dp, RectangleShape)
+                .clickable { onPostItemClicked(postItem.postID, postType, context) },
+        ) {
+            Row {
+                PostItemImage(postItem.postID, postType)
+                PostItemData(postItem)
+            }
         }
+        Spacer(Modifier.height(5.dp))
     }
 }
 
