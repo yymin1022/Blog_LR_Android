@@ -66,10 +66,8 @@ fun PostListUI(postType: String) {
 fun PostListContainer(postType: String) {
     var postList: PostList by remember { mutableStateOf(PostList(0, emptyList())) }
     LaunchedEffect(Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            postList = withContext(Dispatchers.Default) {
-                API.getServerPostList(postType)
-            }
+        postList = withContext(Dispatchers.IO) {
+            API.getServerPostList(postType)
         }
     }
     PostItemContainer(postType, postList)
