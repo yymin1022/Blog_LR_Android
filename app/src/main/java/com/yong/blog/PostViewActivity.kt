@@ -78,7 +78,9 @@ fun PostViewContainer(postID: String, postType: String) {
 @Composable
 fun PostViewCompose(postData: PostData) {
     Column(
-        modifier = Modifier.verticalScroll(rememberScrollState()),
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
