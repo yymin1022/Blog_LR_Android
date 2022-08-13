@@ -93,7 +93,6 @@ fun PostItem(idx: Int, postItem: PostListItem, postType: String) {
     val context = LocalContext.current
     Card(
         modifier = Modifier
-            .border(width = 2.dp, color = Color.LightGray)
             .fillMaxWidth()
             .height(100.dp)
             .clickable { onPostItemClicked(postItem.postID, postType, context) },
