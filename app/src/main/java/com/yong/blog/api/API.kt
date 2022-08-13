@@ -54,6 +54,10 @@ interface RetrofitInterface {
     fun getPostData(@Body request: PostDataRequest):
             Call<PostDataResponse>
 
+    @POST("/getPostImage")
+    fun getPostImage(@Body request: PostImageRequest):
+            Call<PostImageResponse>
+
     @POST("/getPostList")
     fun getPostList(@Body request: PostListRequest):
             Call<PostListResponse>
@@ -77,6 +81,22 @@ data class PostDataResponseData(
     val PostTag: List<String>,
     val PostTitle: String,
     val PostURL: String
+)
+
+data class PostImageRequest(
+    val postID: String,
+    val postType: String,
+    val srcID: String
+)
+
+data class PostImageResponse(
+    val RESULT_CODE: Int,
+    val RESULT_MSG: String,
+    val RESULT_DATA: PostImageResponseData
+)
+
+data class PostImageResponseData(
+    val ImageData: String
 )
 
 data class PostListRequest(
