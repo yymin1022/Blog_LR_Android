@@ -114,10 +114,34 @@ fun PostItemImage(postID: String, postType: String) {
 @Composable
 fun PostItemData(postItem: PostListItem) {
     Column {
-        Text(postItem.postTitle)
-        Text(postItem.postDate)
-        Text(postItem.postTag.toString())
+        PostItemDataTitle(postItem.postTitle)
+        PostItemDataDate(postItem.postDate)
+        PostItemDataTag(postItem.postTag)
     }
+}
+
+@Composable
+fun PostItemDataDate(postDate: String) {
+    Text(
+        text = postDate,
+        modifier = Modifier
+    )
+}
+
+@Composable
+fun PostItemDataTag(postTag: List<String>) {
+    Text(
+        text = postTag.toString(),
+        modifier = Modifier
+    )
+}
+
+@Composable
+fun PostItemDataTitle(postTitle: String) {
+    Text(
+        text = postTitle,
+        modifier = Modifier
+    )
 }
 
 fun onPostItemClicked(postID: String, postType: String, context: Context){
