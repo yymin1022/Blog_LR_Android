@@ -148,7 +148,8 @@ fun PostItemDataTitle(postTitle: String) {
     Text(
         text = postTitle,
         style = TextStyle(
-            color = BlogBlue500
+            color = BlogBlue500,
+            fontSize = 17.sp
         )
     )
 }
