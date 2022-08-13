@@ -118,7 +118,7 @@ fun PostItemImage(postURL: String, postType: String, postIsPinned: Boolean) {
     val (imageData, setImageData) = remember { mutableStateOf("") }
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {
-            var thumbFile = when(postType) {
+            val thumbFile = when(postType) {
                 "solving" -> when {
                     postIsPinned -> "thumb_boj.png"
                     else -> "thumb_programmers.png"
