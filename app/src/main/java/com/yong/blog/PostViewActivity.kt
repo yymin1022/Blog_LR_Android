@@ -5,9 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
@@ -45,7 +47,10 @@ fun PostViewUI(postID: String, postType: String) {
             )
         }
     ) {
-        Column {
+        Column(
+            modifier = Modifier
+                .padding(10.dp)
+        ) {
             PostViewContainer(postID, postType)
         }
     }
