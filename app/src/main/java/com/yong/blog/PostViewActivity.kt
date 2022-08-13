@@ -99,7 +99,10 @@ fun PostViewContent(postContent: String) {
 
 @Composable
 fun PostViewDate(postDate: String) {
-    Text(postDate)
+    Text(
+        modifier = Modifier,
+        text = postDate
+    )
 }
 
 @Composable
@@ -109,5 +112,8 @@ fun PostViewTag(postTag: List<String>) {
 
 @Composable
 fun PostViewTitle(postTitle: String) {
-    Text(postTitle)
+    Text(
+        modifier = Modifier,
+        text = postTitle
+    )
 }
