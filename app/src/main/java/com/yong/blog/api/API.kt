@@ -1,5 +1,6 @@
 package com.yong.blog.api
 
+import android.util.Log
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -85,8 +86,8 @@ data class PostDataResponseData(
 )
 
 data class PostImageRequest(
-    val postID: String,
     val postType: String,
+    val postID: String,
     val srcID: String
 )
 
