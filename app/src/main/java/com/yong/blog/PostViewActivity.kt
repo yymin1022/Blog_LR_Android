@@ -56,7 +56,7 @@ fun PostViewUI(postID: String, postType: String) {
     ) {
         Column(
             modifier = Modifier
-                .padding(10.dp)
+                .padding(horizontal = 20.dp, vertical = 15.dp)
         ) {
             PostViewContainer(postID, postType)
         }
