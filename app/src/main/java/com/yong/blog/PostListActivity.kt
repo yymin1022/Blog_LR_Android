@@ -41,7 +41,8 @@ class PostListActivity : ComponentActivity() {
         setContent {
             Blog_LR_AndroidTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
                     PostListUI(postType)
@@ -56,7 +57,9 @@ fun PostListUI(postType: String) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("1인개발자 LR의 IT블로그") }
+                title = {
+                    Text("1인개발자 LR의 IT블로그")
+                }
             )
         }
     ) {
@@ -96,7 +99,9 @@ fun PostItemContainer(postType: String, postList: PostList) {
 fun PostItem(postItem: PostListItem, postType: String) {
     val context = LocalContext.current
     Column {
-        Spacer(Modifier.height(5.dp))
+        Spacer(Modifier
+            .height(5.dp)
+        )
         Card(
             modifier = Modifier
                 .fillMaxWidth()
