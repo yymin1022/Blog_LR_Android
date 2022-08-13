@@ -101,7 +101,7 @@ fun PostItem(postItem: PostListItem, postType: String) {
                 .clickable { onPostItemClicked(postItem.postID, postType, context) },
         ) {
             Row {
-                PostItemImage(postItem.postID, postType)
+                PostItemImage(postItem.postURL, postType)
                 PostItemData(postItem)
             }
         }
@@ -110,11 +110,11 @@ fun PostItem(postItem: PostListItem, postType: String) {
 }
 
 @Composable
-fun PostItemImage(postID: String, postType: String) {
+fun PostItemImage(postURL: String, postType: String) {
     val (imageData, setImageData) = remember { mutableStateOf("") }
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {
-            setImageData(API.getServerPostImage(postType, postID, "thumb.png"))
+            setImageData(API.getServerPostImage(postType, postURL, "thumb.png"))
         }
     }
     Box(
