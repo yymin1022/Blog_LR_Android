@@ -45,7 +45,7 @@ fun MainUI() {
     ) {
         Column(
             modifier = Modifier
-                .padding(10.dp)
+                .padding(20.dp)
         ) {
             MainTitleContainer()
             MainButtonContainer()
