@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
-import dev.jeziellago.compose.markdowntext.MarkdownText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -78,7 +77,7 @@ fun PostViewCompose(postData: PostData) {
 
 @Composable
 fun PostViewContent(postContent: String) {
-    MarkdownText(markdown = postContent)
+    Text("Content : $postContent")
 }
 
 @Composable
@@ -93,5 +92,5 @@ fun PostViewTag(postTag: List<String>) {
 
 @Composable
 fun PostViewTitle(postTitle: String) {
-    Text("Title : $postTitle")
+    Text("Title\n$postTitle")
 }
