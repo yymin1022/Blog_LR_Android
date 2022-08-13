@@ -75,25 +75,11 @@ fun PostListContainer(postType: String) {
 fun PostItemContainer(postType: String, postList: PostList) {
     LazyColumn {
         itemsIndexed(postList.postList) {
-            index, item -> if(item.postIsPinned) PostItemPinned(index, item, postType)
+            index, item -> if(item.postIsPinned) PostItem(index, item, postType)
         }
         itemsIndexed(postList.postList) {
             index, item -> if(!item.postIsPinned) PostItem(index, item, postType)
         }
-    }
-}
-
-@Composable
-fun PostItemPinned(idx: Int, postItem: PostListItem, postType: String) {
-    val context = LocalContext.current
-    Card(
-        modifier = Modifier
-            .border(width = 2.dp, color = Color.LightGray)
-            .fillMaxWidth()
-            .height(100.dp)
-            .clickable { onPostItemClicked(postItem.postID, postType, context) },
-    ) {
-        Text("!!Pinned $idx. ${postItem.postTitle}")
     }
 }
 
