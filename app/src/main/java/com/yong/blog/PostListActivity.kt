@@ -3,10 +3,8 @@ package com.yong.blog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -83,16 +80,16 @@ fun PostListContainer(postType: String) {
 fun PostItemContainer(postType: String, postList: PostList) {
     LazyColumn {
         itemsIndexed(postList.postList) {
-            index, item -> if(item.postIsPinned) PostItem(index, item, postType)
+            index, item -> if(item.postIsPinned) PostItem(item, postType)
         }
         itemsIndexed(postList.postList) {
-            index, item -> if(!item.postIsPinned) PostItem(index, item, postType)
+            index, item -> if(!item.postIsPinned) PostItem(item, postType)
         }
     }
 }
 
 @Composable
-fun PostItem(idx: Int, postItem: PostListItem, postType: String) {
+fun PostItem(postItem: PostListItem, postType: String) {
     val context = LocalContext.current
     Column {
         Spacer(Modifier.height(5.dp))
