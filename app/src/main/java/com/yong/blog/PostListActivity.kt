@@ -118,13 +118,12 @@ fun PostItemImage(postURL: String, postType: String, postIsPinned: Boolean) {
     val (imageData, setImageData) = remember { mutableStateOf("") }
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {
-            var thumbFile = "thumb.png"
-            if(postType == "solving"){
-                if(postIsPinned){
-                    thumbFile = "thumb_boj.png"
-                }else{
-                    thumbFile = "thumb_programmers.png"
+            var thumbFile = when(postType) {
+                "solving" -> when {
+                    postIsPinned -> "thumb_boj.png"
+                    else -> "thumb_programmers.png"
                 }
+                else -> "thumb.png"
             }
             setImageData(API.getServerPostImage(postType, postURL, thumbFile))
         }
@@ -136,7 +135,7 @@ fun PostItemImage(postURL: String, postType: String, postIsPinned: Boolean) {
             .height(100.dp)
             .width(100.dp)
     ) {
-        if(bitmapData != null){
+        if(bitmapData != null) {
             Image(
                 bitmap = bitmapData.asImageBitmap(),
                 contentDescription = "Thumbnail"
