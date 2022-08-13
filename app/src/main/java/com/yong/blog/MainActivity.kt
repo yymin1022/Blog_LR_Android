@@ -22,7 +22,8 @@ class MainActivity: ComponentActivity() {
         setContent {
             Blog_LR_AndroidTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
                     MainUI()
