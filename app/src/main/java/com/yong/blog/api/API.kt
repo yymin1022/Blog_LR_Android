@@ -29,7 +29,7 @@ object API {
     }
 
     fun getServerPostImage(postType: String, postID: String, srcID: String): String {
-        val result = RetrofitUtil.RetrofitService.getPostImage(PostImageRequest(postID, postType, srcID)).execute().body()!!
+        val result = RetrofitUtil.RetrofitService.getPostImage(PostImageRequest(postType, postID, srcID)).execute().body()!!
         val imageData = result.RESULT_DATA.ImageData
 
         return imageData
