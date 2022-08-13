@@ -20,9 +20,7 @@ import com.yong.blog.api.API
 import com.yong.blog.api.PostList
 import com.yong.blog.api.PostListItem
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class PostListActivity : ComponentActivity() {
