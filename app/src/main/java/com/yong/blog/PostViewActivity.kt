@@ -60,10 +60,8 @@ fun PostViewUI(postID: String, postType: String) {
 fun PostViewContainer(postID: String, postType: String) {
     var postData: PostData by remember { mutableStateOf(PostData("", "", false, emptyList(), "", "")) }
     LaunchedEffect(Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            postData = withContext(Dispatchers.Default) {
-                API.getServerPostData(postType, postID)
-            }
+        postData = withContext(Dispatchers.IO) {
+            API.getServerPostData(postType, postID)
         }
     }
     PostViewCompose(postData)
