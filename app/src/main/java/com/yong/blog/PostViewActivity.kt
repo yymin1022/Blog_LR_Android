@@ -121,14 +121,16 @@ fun PostViewDate(postDate: String) {
 
 @Composable
 fun PostViewTag(postTag: List<String>) {
-    for(tag in postTag){
-        Text(
-            text = "#$tag ",
-            style = TextStyle(
-                color = Color.Gray,
-                fontSize = 15.sp
+    Row{
+        for(tag in postTag){
+            Text(
+                text = "#$tag ",
+                style = TextStyle(
+                    color = Color.Gray,
+                    fontSize = 15.sp
+                )
             )
-        )
+        }
     }
 }
 
