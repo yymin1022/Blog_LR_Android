@@ -1,6 +1,7 @@
 package com.yong.blog
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
@@ -105,9 +107,15 @@ fun PostViewCompose(postData: PostData) {
 fun PostViewContent(postContent: String) {
     val ctx = LocalContext.current
     val markwon: Markwon = Markwon.create(ctx)
-    val txtMD = markwon.toMarkdown(postContent)
 
-    Text(txtMD.toString())
+    AndroidView(
+        factory = {
+            context -> TextView(context)
+        }
+    ) {
+        markwon.setMarkdown(it, postContent)
+        it.setTextColor(Color.Black.hashCode())
+    }
 }
 
 @Composable
