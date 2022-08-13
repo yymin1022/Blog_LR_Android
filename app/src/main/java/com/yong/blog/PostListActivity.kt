@@ -2,9 +2,12 @@ package com.yong.blog
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -117,12 +121,19 @@ fun PostItemImage(postURL: String, postType: String) {
             setImageData(API.getServerPostImage(postType, postURL, "thumb.png"))
         }
     }
+    val imageBytes = Base64.decode(imageData, Base64.DEFAULT)
+    val bitmapData = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
     Box(
         modifier = Modifier
             .height(100.dp)
             .width(100.dp)
     ) {
-        Text(imageData)
+        if(bitmapData != null){
+            Image(
+                bitmap = bitmapData.asImageBitmap(),
+                contentDescription = "Thumbnail"
+            )
+        }
     }
 }
 
