@@ -85,8 +85,6 @@ fun PostViewCompose(postData: PostData) {
         PostViewTitle(postData.postTitle)
 
         Row {
-            Text("written by LR")
-            Text(" | ")
             PostViewDate(postData.postDate)
         }
 
@@ -109,7 +107,7 @@ fun PostViewContent(postContent: String) {
 @Composable
 fun PostViewDate(postDate: String) {
     Text(
-        text = postDate,
+        text = "written by LR | $postDate",
         style = TextStyle(
             fontSize = 15.sp
         )
