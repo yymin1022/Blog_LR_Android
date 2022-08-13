@@ -106,7 +106,8 @@ fun PostViewCompose(postData: PostData) {
 @Composable
 fun PostViewContent(postContent: String) {
     val ctx = LocalContext.current
-    val markwon: Markwon = Markwon.create(ctx)
+    val markwon: Markwon = Markwon.builder(ctx)
+        .build()
 
     AndroidView(
         factory = {
