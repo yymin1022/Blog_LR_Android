@@ -115,7 +115,9 @@ fun PostViewDate(postDate: String) {
 
 @Composable
 fun PostViewTag(postTag: List<String>) {
-    Text(postTag.toString())
+    for(tag in postTag){
+        Text("#$tag ")
+    }
 }
 
 @Composable
