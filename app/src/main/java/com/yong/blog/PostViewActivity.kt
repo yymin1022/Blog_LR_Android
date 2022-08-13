@@ -109,8 +109,10 @@ fun PostViewContent(postContent: String) {
 @Composable
 fun PostViewDate(postDate: String) {
     Text(
-        modifier = Modifier,
-        text = postDate
+        text = postDate,
+        style = TextStyle(
+            fontSize = 15.sp
+        )
     )
 }
 
