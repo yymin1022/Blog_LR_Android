@@ -118,7 +118,10 @@ fun PostItemImage(postID: String, postType: String) {
 
 @Composable
 fun PostItemData(postItem: PostListItem) {
-    Column {
+    Column(
+        modifier = Modifier
+            .padding(5.dp)
+    ) {
         PostItemDataTitle(postItem.postTitle)
         PostItemDataDate(postItem.postDate)
         PostItemDataTag(postItem.postTag)
