@@ -105,7 +105,7 @@ fun PostItem(postItem: PostListItem, postType: String) {
                 .clickable { onPostItemClicked(postItem.postID, postType, context) },
         ) {
             Row {
-                PostItemImage(postItem.postURL, postType)
+                PostItemImage(postItem.postURL, postType, postItem.postIsPinned)
                 PostItemData(postItem)
             }
         }
@@ -114,11 +114,19 @@ fun PostItem(postItem: PostListItem, postType: String) {
 }
 
 @Composable
-fun PostItemImage(postURL: String, postType: String) {
+fun PostItemImage(postURL: String, postType: String, postIsPinned: Boolean) {
     val (imageData, setImageData) = remember { mutableStateOf("") }
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {
-            setImageData(API.getServerPostImage(postType, postURL, "thumb.png"))
+            var thumbFile = "thumb.png"
+            if(postType == "solving"){
+                if(postIsPinned){
+                    thumbFile = "thumb_boj.png"
+                }else{
+                    thumbFile = "thumb_programmers.png"
+                }
+            }
+            setImageData(API.getServerPostImage(postType, postURL, thumbFile))
         }
     }
     val imageBytes = Base64.decode(imageData, Base64.DEFAULT)
