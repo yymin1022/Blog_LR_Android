@@ -3,7 +3,6 @@ package com.yong.blog
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -19,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
-import com.yong.blog.ui.theme.BlogBlue500
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import io.noties.markwon.Markwon
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +48,9 @@ fun PostViewUI(postID: String, postType: String) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("1인개발자 LR의 IT블로그") }
+                title = {
+                    Text("1인개발자 LR의 IT블로그")
+                }
             )
         }
     ) {
