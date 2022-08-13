@@ -114,7 +114,7 @@ fun PostItemImage(postID: String, postType: String) {
     val (imageData, setImageData) = remember { mutableStateOf("") }
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {
-            setImageData(API.getServerPostImage(postType, postID, ""))
+            setImageData(API.getServerPostImage(postType, postID, "thumb.png"))
         }
     }
     Box(
