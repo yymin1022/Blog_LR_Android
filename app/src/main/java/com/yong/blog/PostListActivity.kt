@@ -128,7 +128,7 @@ fun PostItemDataDate(postDate: String) {
     Text(
         text = postDate,
         style = TextStyle(
-
+            
         )
     )
 }
@@ -149,7 +149,7 @@ fun PostItemDataTitle(postTitle: String) {
         text = postTitle,
         style = TextStyle(
             color = BlogBlue500,
-            fontSize = 17.sp
+            fontSize = 18.sp
         )
     )
 }
