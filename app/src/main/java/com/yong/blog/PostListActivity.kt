@@ -136,13 +136,17 @@ fun PostItemDataDate(postDate: String) {
 
 @Composable
 fun PostItemDataTag(postTag: List<String>) {
-    Text(
-        text = postTag.toString(),
-        style = TextStyle(
-            color = Color.Gray,
-            fontSize = 17.sp
-        )
-    )
+    Row {
+        for(tagItem in postTag) {
+            Text(
+                text = "#$tagItem ",
+                style = TextStyle(
+                    color = Color.Gray,
+                    fontSize = 17.sp
+                )
+            )
+        }
+    }
 }
 
 @Composable
