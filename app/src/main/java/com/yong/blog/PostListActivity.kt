@@ -64,10 +64,10 @@ fun PostListUI(postType: String) {
 
 @Composable
 fun PostListContainer(postType: String) {
-    var postList: PostList by remember { mutableStateOf(PostList(0, emptyList())) }
+    val (postList, setPostList) = remember { mutableStateOf(PostList(0, emptyList())) }
     LaunchedEffect(Unit) {
-        postList = withContext(Dispatchers.IO) {
-            API.getServerPostList(postType)
+        withContext(Dispatchers.IO) {
+            setPostList(API.getServerPostList(postType))
         }
     }
     PostItemContainer(postType, postList)
