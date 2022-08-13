@@ -109,7 +109,7 @@ fun PostItem(idx: Int, postItem: PostListItem, postType: String) {
     ) {
         Row {
             PostItemImage(postItem.postID, postType)
-            Text("$idx. ${postItem.postTitle}")
+            PostItemData(postItem)
         }
     }
 }
@@ -122,6 +122,15 @@ fun PostItemImage(postID: String, postType: String) {
             .width(100.dp)
     ) {
         Text("IMAGE")
+    }
+}
+
+@Composable
+fun PostItemData(postItem: PostListItem) {
+    Column {
+        Text(postItem.postTitle)
+        Text(postItem.postDate)
+        Text(postItem.postTag.toString())
     }
 }
 
