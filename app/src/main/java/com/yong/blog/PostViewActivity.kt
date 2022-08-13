@@ -1,11 +1,8 @@
 package com.yong.blog
 
 import android.os.Bundle
-import android.text.Spanned
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,9 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
