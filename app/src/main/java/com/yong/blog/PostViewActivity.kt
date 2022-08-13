@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -64,6 +65,7 @@ fun PostViewContainer(postID: String, postType: String) {
         withContext(Dispatchers.IO) {
             setPostData(API.getServerPostData(postType, postID))
         }
+
     }
     PostViewCompose(postData)
 }
@@ -74,9 +76,15 @@ fun PostViewCompose(postData: PostData) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         PostViewTitle(postData.postTitle)
-        PostViewDate(postData.postDate)
-        PostViewTag(postData.postTag)
+
+        Row {
+            Text("written by LR")
+            Text(" | ")
+            PostViewDate(postData.postDate)
+        }
+
         PostViewContent(postData.postContent)
+        PostViewTag(postData.postTag)
     }
 }
 
