@@ -15,10 +15,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.yong.blog.api.API
 import com.yong.blog.api.PostList
 import com.yong.blog.api.PostListItem
+import com.yong.blog.ui.theme.BlogBlue500
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -124,7 +127,9 @@ fun PostItemData(postItem: PostListItem) {
 fun PostItemDataDate(postDate: String) {
     Text(
         text = postDate,
-        modifier = Modifier
+        style = TextStyle(
+
+        )
     )
 }
 
@@ -132,7 +137,9 @@ fun PostItemDataDate(postDate: String) {
 fun PostItemDataTag(postTag: List<String>) {
     Text(
         text = postTag.toString(),
-        modifier = Modifier
+        style = TextStyle(
+
+        )
     )
 }
 
@@ -140,7 +147,9 @@ fun PostItemDataTag(postTag: List<String>) {
 fun PostItemDataTitle(postTitle: String) {
     Text(
         text = postTitle,
-        modifier = Modifier
+        style = TextStyle(
+            
+        )
     )
 }
 
