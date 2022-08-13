@@ -9,9 +9,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
+import com.yong.blog.ui.theme.BlogBlue500
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import io.noties.markwon.Markwon
 import kotlinx.coroutines.Dispatchers
@@ -111,7 +115,10 @@ fun PostViewTag(postTag: List<String>) {
 @Composable
 fun PostViewTitle(postTitle: String) {
     Text(
-        modifier = Modifier,
-        text = postTitle
+        text = postTitle,
+        style = TextStyle(
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
     )
 }
