@@ -111,12 +111,18 @@ fun PostItem(postItem: PostListItem, postType: String) {
 
 @Composable
 fun PostItemImage(postID: String, postType: String) {
+    val (imageData, setImageData) = remember { mutableStateOf("") }
+    LaunchedEffect(Unit) {
+        withContext(Dispatchers.IO) {
+            setImageData(API.getServerPostImage(postType, postID, ""))
+        }
+    }
     Box(
         modifier = Modifier
             .height(100.dp)
             .width(100.dp)
     ) {
-        Text("IMAGE")
+        Text(imageData)
     }
 }
 
