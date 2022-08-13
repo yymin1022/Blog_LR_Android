@@ -128,7 +128,8 @@ fun PostItemDataDate(postDate: String) {
     Text(
         text = postDate,
         style = TextStyle(
-            
+            color = Color.Gray,
+            fontSize = 17.sp
         )
     )
 }
