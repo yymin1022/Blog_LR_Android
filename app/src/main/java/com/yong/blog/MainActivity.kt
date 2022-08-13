@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 import com.yong.blog.ui.theme.*
 
@@ -87,7 +89,10 @@ fun MainButtonItem(text: String, action: () -> Unit) {
     ) {
         Text(
             text = text,
-            color = Color.Black
+            style = TextStyle(
+                color = Color.Black,
+                fontSize = 20.sp
+            )
         )
     }
 }
@@ -105,12 +110,18 @@ fun MainTitleContainer() {
 fun MainTitleText(text: String, isBlue: Boolean) {
     if(isBlue){
         Text(
-            color = BlogBlue500,
-            text = text
+            text = text,
+            style = TextStyle(
+                color = BlogBlue500,
+                fontSize = 35.sp
+            )
         )
     }else{
         Text(
-            text = text
+            text = text,
+            style = TextStyle(
+                fontSize = 35.sp
+            )
         )
     }
 }
