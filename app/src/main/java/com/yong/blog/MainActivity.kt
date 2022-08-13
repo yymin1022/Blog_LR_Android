@@ -105,8 +105,8 @@ fun MainTitleContainer() {
 fun MainTitleText(text: String, isBlue: Boolean) {
     if(isBlue){
         Text(
-            text = text,
-            color = BlogBlue500
+            color = BlogBlue500,
+            text = text
         )
     }else{
         Text(
