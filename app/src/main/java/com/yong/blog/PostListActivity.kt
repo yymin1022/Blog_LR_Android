@@ -61,7 +61,7 @@ fun PostListUI(postType: String) {
     ) {
         Column(
             modifier = Modifier
-                .padding(10.dp)
+                .padding(horizontal = 20.dp)
         ) {
             PostListContainer(postType)
         }
