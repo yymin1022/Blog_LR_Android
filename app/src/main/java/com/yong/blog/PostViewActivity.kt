@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -116,7 +117,13 @@ fun PostViewDate(postDate: String) {
 @Composable
 fun PostViewTag(postTag: List<String>) {
     for(tag in postTag){
-        Text("#$tag ")
+        Text(
+            text = "#$tag ",
+            style = TextStyle(
+                color = Color.Gray,
+                fontSize = 15.sp
+            )
+        )
     }
 }
 
