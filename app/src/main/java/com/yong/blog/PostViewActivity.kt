@@ -85,11 +85,11 @@ fun PostViewContainer(postID: String, postType: String) {
         }
 
     }
-    PostViewCompose(postData)
+    PostViewCompose(postData, postID, postType)
 }
 
 @Composable
-fun PostViewCompose(postData: PostData) {
+fun PostViewCompose(postData: PostData, postID: String, postType: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -107,13 +107,13 @@ fun PostViewCompose(postData: PostData) {
             color = Color.LightGray
         )
 
-        PostViewContent(postData.postContent)
+        PostViewContent(postData.postContent, postID, postType)
         PostViewTag(postData.postTag)
     }
 }
 
 @Composable
-fun PostViewContent(postContent: String) {
+fun PostViewContent(postContent: String, postID: String, postType: String) {
     val ctx = LocalContext.current
 
     val mdParser: Parser = Parser.builder().build()
