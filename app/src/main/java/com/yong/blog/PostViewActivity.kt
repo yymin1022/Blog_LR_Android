@@ -121,7 +121,7 @@ fun PostViewContent(postContent: String) {
         modifier = Modifier
             .fillMaxSize(),
         factory = {
-            context -> TextView(context)
+            TextView(ctx)
         }
     ) {
         it.setTextColor(Color.Black.hashCode())
