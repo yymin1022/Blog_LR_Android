@@ -24,6 +24,12 @@ import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.commonmark.node.Node
+import org.commonmark.parser.Parser
+import org.commonmark.renderer.html.HtmlRenderer
+
+
+
 
 class PostViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,6 +112,11 @@ fun PostViewCompose(postData: PostData) {
 fun PostViewContent(postContent: String) {
     val ctx = LocalContext.current
 
+    val mdParser: Parser = Parser.builder().build()
+    val htmlDoc: Node = mdParser.parse(postContent)
+    val htmlRenderer = HtmlRenderer.builder().build()
+    val postContentHTML = htmlRenderer.render(htmlDoc)
+
     AndroidView(
         modifier = Modifier
             .fillMaxSize(),
@@ -114,6 +125,7 @@ fun PostViewContent(postContent: String) {
         }
     ) {
         it.setTextColor(Color.Black.hashCode())
+        it.text = postContentHTML
     }
 }
 
