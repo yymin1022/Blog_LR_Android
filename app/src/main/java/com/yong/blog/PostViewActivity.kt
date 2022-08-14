@@ -114,8 +114,6 @@ fun PostViewContent(postContent: String) {
     val ctx = LocalContext.current
 
     AndroidView(
-        modifier = Modifier
-            .fillMaxSize(),
         factory = {
             context -> TextView(context)
         }
