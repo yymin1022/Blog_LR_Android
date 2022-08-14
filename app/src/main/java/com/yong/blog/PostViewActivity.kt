@@ -1,6 +1,7 @@
 package com.yong.blog
 
 import android.os.Bundle
+import android.text.Html
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -116,16 +117,15 @@ fun PostViewContent(postContent: String) {
     val htmlDoc: Node = mdParser.parse(postContent)
     val htmlRenderer = HtmlRenderer.builder().build()
     val postContentHTML = htmlRenderer.render(htmlDoc)
-
+    
     AndroidView(
         modifier = Modifier
             .fillMaxSize(),
         factory = {
-            TextView(ctx)
+            context -> TextView(context)
         }
     ) {
-        it.setTextColor(Color.Black.hashCode())
-        it.text = postContentHTML
+
     }
 }
 
