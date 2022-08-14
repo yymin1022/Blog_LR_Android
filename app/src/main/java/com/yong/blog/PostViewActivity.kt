@@ -1,6 +1,7 @@
 package com.yong.blog
 
 import android.os.Bundle
+import android.text.Spanned
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,8 +25,14 @@ import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import io.noties.markwon.Markwon
 import io.noties.markwon.html.HtmlPlugin
+import io.noties.markwon.syntax.Prism4jSyntaxHighlight
+import io.noties.markwon.syntax.Prism4jThemeDarkula
+import io.noties.markwon.syntax.SyntaxHighlight
+import io.noties.markwon.syntax.SyntaxHighlightPlugin
+import io.noties.prism4j.Prism4j
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.commonmark.node.Node
 
 class PostViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -107,16 +114,20 @@ fun PostViewCompose(postData: PostData) {
 @Composable
 fun PostViewContent(postContent: String) {
     val ctx = LocalContext.current
-    val markwon: Markwon = Markwon.builder(ctx)
-        .usePlugin(HtmlPlugin.create())
-        .build()
 
     AndroidView(
         factory = {
             context -> TextView(context)
         }
     ) {
-        markwon.setMarkdown(it, postContent)
+        val prism4j = Prism4j(PostGrammarLocator())
+        val markwon: Markwon = Markwon.builder(ctx)
+            .usePlugin(HtmlPlugin.create())
+            .usePlugin(SyntaxHighlightPlugin.create(prism4j, Prism4jThemeDarkula.create(), String()))
+            .build()
+        val mdNode: Node = markwon.parse(postContent)
+        val mdSpanned: Spanned = markwon.render(mdNode)
+        markwon.setParsedMarkdown(it, mdSpanned)
         it.setTextColor(Color.Black.hashCode())
     }
 }
