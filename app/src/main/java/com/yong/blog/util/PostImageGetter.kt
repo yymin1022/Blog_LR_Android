@@ -19,16 +19,18 @@ class PostImageGetter(
         private val postURL: String
     ): Html.ImageGetter {
     override fun getDrawable(source: String): Drawable {
-        val (imageData, setImageData) = mutableStateOf("")
+        val (bitmap, setBitmap) = mutableStateOf(BitmapFactory.decodeByteArray(ByteArray(0), 0, 0))
+        val (drawable, setDrawable) = mutableStateOf(BitmapDrawable(ctx.resources, bitmap))
+        val (imgByte, setImgByte) = mutableStateOf(ByteArray(0))
+        val (imgData, setImgData) = mutableStateOf("")
 
         scope.launch(Dispatchers.IO) {
-            runCatching {
-                setImageData(API.getServerPostImage(postType, postURL, source))
-            }
+            setImgData(API.getServerPostImage(postType, postURL, source))
+            setImgByte(Base64.decode(imgData, Base64.DEFAULT))
+            setBitmap(BitmapFactory.decodeByteArray(imgByte, 0, imgByte.size))
+            setDrawable(BitmapDrawable(ctx.resources, bitmap))
         }
 
-        val imageBytes = Base64.decode(imageData, Base64.DEFAULT)
-        val bitmapData = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-        return BitmapDrawable(ctx.resources, bitmapData)
+        return drawable
     }
 }
