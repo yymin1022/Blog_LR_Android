@@ -2,9 +2,14 @@ package com.yong.blog
 
 import android.R
 import android.R.attr.data
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Html
 import android.text.Html.ImageGetter
+import android.text.method.LinkMovementMethod
+import android.util.Base64
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +21,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -28,7 +34,10 @@ import androidx.core.text.HtmlCompat
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
+import com.yong.blog.util.PostImageGetter
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.commonmark.node.Node
 import org.commonmark.parser.Parser
@@ -107,31 +116,35 @@ fun PostViewCompose(postData: PostData, postID: String, postType: String) {
             color = Color.LightGray
         )
 
-        PostViewContent(postData.postContent, postID, postType)
+        PostViewContent(postData.postContent, postData.postURL, postType)
         PostViewTag(postData.postTag)
     }
 }
 
 @Composable
-fun PostViewContent(postContent: String, postID: String, postType: String) {
+fun PostViewContent(postContent: String, postURL: String, postType: String) {
     val ctx = LocalContext.current
 
     val mdParser: Parser = Parser.builder().build()
     val htmlDoc: Node = mdParser.parse(postContent)
     val htmlRenderer = HtmlRenderer.builder().build()
     val postContentHTML = htmlRenderer.render(htmlDoc)
+
+    val imageGetter = PostImageGetter(ctx, postType, postURL)
     
     AndroidView(
         modifier = Modifier
             .fillMaxSize(),
         factory = {
-            context -> TextView(context)
+            context -> TextView(context).apply {
+                setTextColor(Color.Black.hashCode())
+                movementMethod = LinkMovementMethod.getInstance()
+            }
+        },
+        update = {
+            it.text = HtmlCompat.fromHtml(postContentHTML, HtmlCompat.FROM_HTML_MODE_LEGACY, imageGetter, null)
         }
-    ) {
-        it.setText(
-            HtmlCompat.fromHtml(postContentHTML, HtmlCompat.FROM_HTML_MODE_LEGACY)
-        )
-    }
+    )
 }
 
 @Composable
