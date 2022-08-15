@@ -10,7 +10,6 @@ import androidx.compose.runtime.mutableStateOf
 import com.yong.blog.api.API
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class PostImageGetter(
