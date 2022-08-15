@@ -130,7 +130,7 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
     val htmlRenderer = HtmlRenderer.builder().build()
     val postContentHTML = htmlRenderer.render(htmlDoc)
 
-    val imageGetter = PostImageGetter(ctx, postType, postURL)
+    val imageGetter = PostImageGetter(ctx, rememberCoroutineScope(), postType, postURL)
     
     AndroidView(
         modifier = Modifier

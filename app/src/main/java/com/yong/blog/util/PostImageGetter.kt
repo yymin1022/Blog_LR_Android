@@ -8,19 +8,21 @@ import android.text.Html
 import android.util.Base64
 import androidx.compose.runtime.mutableStateOf
 import com.yong.blog.api.API
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class PostImageGetter(
         private val ctx: Context,
+        private val scope: CoroutineScope,
         private val postType: String,
         private val postURL: String
     ): Html.ImageGetter {
     override fun getDrawable(source: String): Drawable {
         val (imageData, setImageData) = mutableStateOf("")
 
-        GlobalScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             runCatching {
                 setImageData(API.getServerPostImage(postType, postURL, source))
             }
