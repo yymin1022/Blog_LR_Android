@@ -87,10 +87,10 @@ fun PostListContainer(postType: String) {
 fun PostItemContainer(postType: String, postList: PostList) {
     LazyColumn {
         itemsIndexed(postList.postList) {
-            index, item -> if(item.postIsPinned) PostItem(item, postType)
+            _, item -> if(item.postIsPinned) PostItem(item, postType)
         }
         itemsIndexed(postList.postList) {
-            index, item -> if(!item.postIsPinned) PostItem(item, postType)
+            _, item -> if(!item.postIsPinned) PostItem(item, postType)
         }
     }
 }
