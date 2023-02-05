@@ -20,16 +20,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.text.HtmlCompat
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import com.yong.blog.util.PostImageGetter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.commonmark.node.Node
-import org.commonmark.parser.Parser
-import org.commonmark.renderer.html.HtmlRenderer
 
 
 class PostViewActivity : ComponentActivity() {
@@ -112,12 +108,6 @@ fun PostViewCompose(postData: PostData, postID: String, postType: String) {
 @Composable
 fun PostViewContent(postContent: String, postURL: String, postType: String) {
     val ctx = LocalContext.current
-
-    val mdParser: Parser = Parser.builder().build()
-    val htmlDoc: Node = mdParser.parse(postContent)
-    val htmlRenderer = HtmlRenderer.builder().build()
-    val postContentHTML = htmlRenderer.render(htmlDoc)
-
     val imageGetter = PostImageGetter(ctx, rememberCoroutineScope(), postType, postURL)
     
     AndroidView(
@@ -130,7 +120,7 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
             }
         },
         update = {
-            it.text = HtmlCompat.fromHtml(postContentHTML, HtmlCompat.FROM_HTML_MODE_LEGACY, imageGetter, null)
+            it.text = postContent
         }
     )
 }
