@@ -1,6 +1,5 @@
 package com.yong.blog.api
 
-import android.util.Log
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
