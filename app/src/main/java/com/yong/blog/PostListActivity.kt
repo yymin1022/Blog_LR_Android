@@ -65,7 +65,7 @@ fun PostListUI(postType: String) {
     ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 15.dp)
+                .padding(it)
         ) {
             PostListContainer(postType)
         }
@@ -85,7 +85,10 @@ fun PostListContainer(postType: String) {
 
 @Composable
 fun PostItemContainer(postType: String, postList: PostList) {
-    LazyColumn {
+    LazyColumn(
+        modifier = Modifier
+            .padding(horizontal = 20.dp, vertical = 15.dp)
+    ) {
         itemsIndexed(postList.postList) {
             _, item -> if(item.postIsPinned) PostItem(item, postType)
         }
