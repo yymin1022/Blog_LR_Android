@@ -24,6 +24,8 @@ import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import com.yong.blog.util.PostImageGetter
+import io.noties.markwon.Markwon
+import io.noties.markwon.html.HtmlPlugin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -110,7 +112,8 @@ fun PostViewCompose(postData: PostData, postID: String, postType: String) {
 fun PostViewContent(postContent: String, postURL: String, postType: String) {
     val ctx = LocalContext.current
     val imageGetter = PostImageGetter(ctx, rememberCoroutineScope(), postType, postURL)
-    
+    val markwon = Markwon.create(ctx)
+
     AndroidView(
         modifier = Modifier
             .fillMaxSize(),
@@ -121,7 +124,12 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
             }
         },
         update = {
-            it.text = postContent
+//            // obtain an instance of Markwon
+//            final Markwon markwon = Markwon.create(context);
+//
+//// parse markdown and create styled text
+//            final Spanned markdown = markwon.toMarkdown("**Hello there!**");
+            it.text = markwon.toMarkdown(postContent)
         }
     )
 }
