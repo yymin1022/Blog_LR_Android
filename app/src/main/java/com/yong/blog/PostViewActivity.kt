@@ -62,7 +62,7 @@ fun PostViewUI(postID: String, postType: String) {
     ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 30.dp)
+                .padding(it)
         ) {
             PostViewContainer(postID, postType)
         }
@@ -86,6 +86,7 @@ fun PostViewCompose(postData: PostData, postID: String, postType: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .padding(horizontal = 20.dp, vertical = 30.dp)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(25.dp)
