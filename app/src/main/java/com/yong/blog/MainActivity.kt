@@ -44,13 +44,17 @@ fun MainUI() {
     ) {
         Column(
             modifier = Modifier
-                .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+                .padding(it)
         ) {
-            MainTitleContainer()
-            MainButtonContainer()
+            Column(
+                modifier = Modifier
+                    .padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                MainTitleContainer()
+                MainButtonContainer()
+            }
         }
-
     }
 }
 
