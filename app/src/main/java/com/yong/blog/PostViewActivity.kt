@@ -39,7 +39,6 @@ import kotlinx.coroutines.withContext
         "markup", "python", "scala", "sql", "swift", "yaml"],
     grammarLocatorClassName = ".TestGrammarLocator"
 )
-class GrammarLocator{}
 
 class PostViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,7 +139,7 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
             }
         },
         update = {
-            it.text = markwon.toMarkdown(postContent)
+            it.text = markwon.toMarkdown(postContent.replace("```c++", "```cpp"))
         }
     )
 }
