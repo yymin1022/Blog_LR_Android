@@ -34,7 +34,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 @PrismBundle(
-    include = [ "c", "cpp", "clike", "java", "python" ],
+    include = ["brainfuck", "c", "clike", "clojure", "cpp", "csharp", "css", "dart", "git", "go",
+        "groovy", "java", "javascript", "json", "kotlin", "latex", "makefile", "markdown",
+        "markup", "python", "scala", "sql", "swift", "yaml"],
     grammarLocatorClassName = ".TestGrammarLocator"
 )
 class GrammarLocator{}
