@@ -26,9 +26,18 @@ import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import com.yong.blog.util.PostImageGetter
 import io.noties.markwon.Markwon
 import io.noties.markwon.html.HtmlPlugin
+import io.noties.markwon.syntax.Prism4jThemeDarkula
+import io.noties.markwon.syntax.SyntaxHighlightPlugin
+import io.noties.prism4j.Prism4j
+import io.noties.prism4j.annotations.PrismBundle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+@PrismBundle(
+    include = [ "c", "cpp", "clike", "java", "python" ],
+    grammarLocatorClassName = ".TestGrammarLocator"
+)
+class GrammarLocator{}
 
 class PostViewActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,7 +121,12 @@ fun PostViewCompose(postData: PostData, postID: String, postType: String) {
 fun PostViewContent(postContent: String, postURL: String, postType: String) {
     val ctx = LocalContext.current
     val imageGetter = PostImageGetter(ctx, rememberCoroutineScope(), postType, postURL)
-    val markwon = Markwon.create(ctx)
+
+    val syntaxHighlight = SyntaxHighlightPlugin.create(Prism4j(TestGrammarLocator()), Prism4jThemeDarkula.create())
+    val markwon = Markwon.builder(ctx)
+        .usePlugin(HtmlPlugin.create())
+        .usePlugin(syntaxHighlight)
+        .build()
 
     AndroidView(
         modifier = Modifier
@@ -124,11 +138,6 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
             }
         },
         update = {
-//            // obtain an instance of Markwon
-//            final Markwon markwon = Markwon.create(context);
-//
-//// parse markdown and create styled text
-//            final Spanned markdown = markwon.toMarkdown("**Hello there!**");
             it.text = markwon.toMarkdown(postContent)
         }
     )
