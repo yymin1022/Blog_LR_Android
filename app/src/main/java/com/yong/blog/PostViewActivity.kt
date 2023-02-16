@@ -2,7 +2,6 @@ package com.yong.blog
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -97,11 +96,11 @@ fun PostViewContainer(postID: String, postType: String) {
         }
 
     }
-    PostViewCompose(postData, postID, postType)
+    PostViewCompose(postData, postType)
 }
 
 @Composable
-fun PostViewCompose(postData: PostData, postID: String, postType: String) {
+fun PostViewCompose(postData: PostData, postType: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
