@@ -2,6 +2,7 @@ package com.yong.blog
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -29,7 +30,12 @@ import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import com.yong.blog.util.PostImageGetter
 import io.noties.markwon.Markwon
+import io.noties.markwon.MarkwonConfiguration
+import io.noties.markwon.RenderProps
 import io.noties.markwon.html.HtmlPlugin
+import io.noties.markwon.html.HtmlTag
+import io.noties.markwon.html.TagHandlerNoOp
+import io.noties.markwon.html.tag.SimpleTagHandler
 import io.noties.markwon.image.AsyncDrawable
 import io.noties.markwon.image.coil.CoilImagesPlugin
 import io.noties.markwon.syntax.Prism4jThemeDarkula
@@ -127,7 +133,6 @@ fun PostViewCompose(postData: PostData, postType: String) {
 @Composable
 fun PostViewContent(postContent: String, postURL: String, postType: String) {
     val ctx = LocalContext.current
-    val imageGetter = PostImageGetter(ctx, rememberCoroutineScope(), postType, postURL)
 
     val imageLoader = ImageLoader.Builder(ctx)
         .apply {
@@ -153,11 +158,16 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
         },
         imageLoader)
 
+    val htmlPlugin = HtmlPlugin.create { plugin: HtmlPlugin ->
+        plugin.addHandler(TagHandlerNoOp.create("img"))
+        plugin.addHandler(htmlTagHandler())
+    }
+
     val syntaxHighlight = SyntaxHighlightPlugin.create(Prism4j(TestGrammarLocator()), Prism4jThemeDarkula.create())
     val markwon = Markwon.builder(ctx)
-        .usePlugin(HtmlPlugin.create())
-        .usePlugin(syntaxHighlight)
         .usePlugin(coilPlugin)
+        .usePlugin(htmlPlugin)
+        .usePlugin(syntaxHighlight)
         .build()
 
     AndroidView(
@@ -210,4 +220,17 @@ fun PostViewTitle(postTitle: String) {
             textAlign = TextAlign.Center
         )
     )
+}
+
+class htmlTagHandler: SimpleTagHandler() {
+    override fun supportedTags() = listOf("img")
+    override fun getSpans(
+        configuration: MarkwonConfiguration,
+        renderProps: RenderProps,
+        tag: HtmlTag
+    ): Any? {
+        val srcName = tag.attributes()["src"].toString()
+        Log.d("IMAGE_RENDER", srcName)
+        return null
+    }
 }
