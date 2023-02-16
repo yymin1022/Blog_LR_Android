@@ -2,6 +2,7 @@ package com.yong.blog
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,12 +21,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import coil.ImageLoader
+import coil.request.Disposable
+import coil.request.ImageRequest
+import coil.transform.CircleCropTransformation
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import com.yong.blog.util.PostImageGetter
 import io.noties.markwon.Markwon
 import io.noties.markwon.html.HtmlPlugin
+import io.noties.markwon.image.AsyncDrawable
+import io.noties.markwon.image.coil.CoilImagesPlugin
 import io.noties.markwon.syntax.Prism4jThemeDarkula
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
@@ -123,10 +130,35 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
     val ctx = LocalContext.current
     val imageGetter = PostImageGetter(ctx, rememberCoroutineScope(), postType, postURL)
 
+    val imageLoader = ImageLoader.Builder(ctx)
+        .apply {
+            availableMemoryPercentage(0.5)
+            bitmapPoolPercentage(0.5)
+            crossfade(true)
+        }
+        .build()
+    val coilPlugin = CoilImagesPlugin.create(
+        object : CoilImagesPlugin.CoilStore {
+            override fun load(drawable: AsyncDrawable): ImageRequest {
+                return ImageRequest.Builder(ctx)
+                    .defaults(imageLoader.defaults)
+                    .data(drawable.destination)
+                    .crossfade(true)
+                    .transformations(CircleCropTransformation())
+                    .build()
+            }
+
+            override fun cancel(disposable: Disposable) {
+                disposable.dispose()
+            }
+        },
+        imageLoader)
+
     val syntaxHighlight = SyntaxHighlightPlugin.create(Prism4j(TestGrammarLocator()), Prism4jThemeDarkula.create())
     val markwon = Markwon.builder(ctx)
         .usePlugin(HtmlPlugin.create())
         .usePlugin(syntaxHighlight)
+        .usePlugin(coilPlugin)
         .build()
 
     AndroidView(
