@@ -2,6 +2,7 @@ package com.yong.blog
 
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.text.style.ImageSpan
 import android.util.Log
 import android.widget.TextView
 import androidx.activity.ComponentActivity
@@ -30,12 +31,8 @@ import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import com.yong.blog.util.PostImageGetter
 import io.noties.markwon.Markwon
-import io.noties.markwon.MarkwonConfiguration
-import io.noties.markwon.RenderProps
-import io.noties.markwon.html.HtmlPlugin
-import io.noties.markwon.html.HtmlTag
-import io.noties.markwon.html.TagHandlerNoOp
-import io.noties.markwon.html.tag.SimpleTagHandler
+import io.noties.markwon.MarkwonVisitor
+import io.noties.markwon.html.*
 import io.noties.markwon.image.AsyncDrawable
 import io.noties.markwon.image.coil.CoilImagesPlugin
 import io.noties.markwon.syntax.Prism4jThemeDarkula
@@ -133,6 +130,7 @@ fun PostViewCompose(postData: PostData, postType: String) {
 @Composable
 fun PostViewContent(postContent: String, postURL: String, postType: String) {
     val ctx = LocalContext.current
+    val imageGetter = PostImageGetter(ctx, rememberCoroutineScope(), postType, postURL)
 
     val imageLoader = ImageLoader.Builder(ctx)
         .apply {
@@ -160,7 +158,7 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
 
     val htmlPlugin = HtmlPlugin.create { plugin: HtmlPlugin ->
         plugin.addHandler(TagHandlerNoOp.create("img"))
-        plugin.addHandler(htmlTagHandler())
+        plugin.addHandler(htmlTagHandler(imageGetter))
     }
 
     val syntaxHighlight = SyntaxHighlightPlugin.create(Prism4j(TestGrammarLocator()), Prism4jThemeDarkula.create())
@@ -222,15 +220,14 @@ fun PostViewTitle(postTitle: String) {
     )
 }
 
-class htmlTagHandler: SimpleTagHandler() {
-    override fun supportedTags() = listOf("img")
-    override fun getSpans(
-        configuration: MarkwonConfiguration,
-        renderProps: RenderProps,
-        tag: HtmlTag
-    ): Any? {
+class htmlTagHandler constructor(private val imageGetter: PostImageGetter): TagHandler() {
+    override fun handle(visitor: MarkwonVisitor, renderer: MarkwonHtmlRenderer, tag: HtmlTag) {
         val srcName = tag.attributes()["src"].toString()
-        Log.d("IMAGE_RENDER", srcName)
-        return null
+        val srcDrawable = imageGetter.getDrawable(srcName)
+        Log.d("IMAGEAA", srcDrawable.toString())
+
+        visitor.builder().setSpan(ImageSpan(srcDrawable), tag.start())
     }
+
+    override fun supportedTags() = listOf("img")
 }
