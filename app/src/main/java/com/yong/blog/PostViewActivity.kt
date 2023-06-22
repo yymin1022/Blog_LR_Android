@@ -132,30 +132,6 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
     val ctx = LocalContext.current
     val imageGetter = PostImageGetter(ctx, rememberCoroutineScope(), postType, postURL)
 
-    val imageLoader = ImageLoader.Builder(ctx)
-        .apply {
-            availableMemoryPercentage(0.5)
-            bitmapPoolPercentage(0.5)
-            crossfade(true)
-        }
-        .build()
-    val coilPlugin = CoilImagesPlugin.create(
-        object : CoilImagesPlugin.CoilStore {
-            override fun load(drawable: AsyncDrawable): ImageRequest {
-                return ImageRequest.Builder(ctx)
-                    .defaults(imageLoader.defaults)
-                    .data(drawable.destination)
-                    .crossfade(true)
-                    .transformations(CircleCropTransformation())
-                    .build()
-            }
-
-            override fun cancel(disposable: Disposable) {
-                disposable.dispose()
-            }
-        },
-        imageLoader)
-
     val htmlPlugin = HtmlPlugin.create { plugin: HtmlPlugin ->
         plugin.addHandler(TagHandlerNoOp.create("img"))
         plugin.addHandler(htmlTagHandler(imageGetter))
@@ -163,7 +139,6 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
 
     val syntaxHighlight = SyntaxHighlightPlugin.create(Prism4j(TestGrammarLocator()), Prism4jThemeDarkula.create())
     val markwon = Markwon.builder(ctx)
-        .usePlugin(coilPlugin)
         .usePlugin(htmlPlugin)
         .usePlugin(syntaxHighlight)
         .build()
