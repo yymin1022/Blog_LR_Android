@@ -3,7 +3,6 @@ package com.yong.blog
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.text.style.ImageSpan
-import android.util.Log
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,10 +21,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import coil.ImageLoader
-import coil.request.Disposable
-import coil.request.ImageRequest
-import coil.transform.CircleCropTransformation
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
@@ -33,8 +28,6 @@ import com.yong.blog.util.PostImageGetter
 import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonVisitor
 import io.noties.markwon.html.*
-import io.noties.markwon.image.AsyncDrawable
-import io.noties.markwon.image.coil.CoilImagesPlugin
 import io.noties.markwon.syntax.Prism4jThemeDarkula
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
@@ -199,7 +192,6 @@ class htmlTagHandler constructor(private val imageGetter: PostImageGetter): TagH
     override fun handle(visitor: MarkwonVisitor, renderer: MarkwonHtmlRenderer, tag: HtmlTag) {
         val srcName = tag.attributes()["src"].toString()
         val srcDrawable = imageGetter.getDrawable(srcName)
-        Log.d("IMAGEAA", srcDrawable.toString())
 
         visitor.builder().setSpan(ImageSpan(srcDrawable), tag.start())
     }
