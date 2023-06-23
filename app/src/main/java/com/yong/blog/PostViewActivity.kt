@@ -1,8 +1,13 @@
 package com.yong.blog
 
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.text.style.ImageSpan
+import android.util.Base64
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,7 +29,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.yong.blog.api.API
 import com.yong.blog.api.PostData
 import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
-import com.yong.blog.util.PostImageGetter
 import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonVisitor
 import io.noties.markwon.html.*
@@ -32,7 +36,9 @@ import io.noties.markwon.syntax.Prism4jThemeDarkula
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
 import io.noties.prism4j.annotations.PrismBundle
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @PrismBundle(
@@ -123,11 +129,11 @@ fun PostViewCompose(postData: PostData, postType: String) {
 @Composable
 fun PostViewContent(postContent: String, postURL: String, postType: String) {
     val ctx = LocalContext.current
-    val imageGetter = PostImageGetter(ctx, rememberCoroutineScope(), postType, postURL)
+    val scope = rememberCoroutineScope()
 
     val htmlPlugin = HtmlPlugin.create { plugin: HtmlPlugin ->
         plugin.addHandler(TagHandlerNoOp.create("img"))
-        plugin.addHandler(htmlTagHandler(imageGetter))
+        plugin.addHandler(htmlTagHandler(ctx, scope, postType, postURL))
     }
 
     val syntaxHighlight = SyntaxHighlightPlugin.create(Prism4j(TestGrammarLocator()), Prism4jThemeDarkula.create())
@@ -188,12 +194,23 @@ fun PostViewTitle(postTitle: String) {
     )
 }
 
-class htmlTagHandler constructor(private val imageGetter: PostImageGetter): TagHandler() {
+class htmlTagHandler constructor(
+        private val ctx: Context,
+        private val scope: CoroutineScope,
+        private val postType: String,
+        private val postURL: String
+    ): TagHandler() {
     override fun handle(visitor: MarkwonVisitor, renderer: MarkwonHtmlRenderer, tag: HtmlTag) {
         val srcName = tag.attributes()["src"].toString()
-        val srcDrawable = imageGetter.getDrawable(srcName)
 
-        visitor.builder().setSpan(ImageSpan(srcDrawable), tag.start())
+        scope.launch(Dispatchers.IO) {
+            val imgData = API.getServerPostImage(postType, postURL, srcName)
+            val imgByte = Base64.decode(imgData, Base64.DEFAULT)
+            val bitmapData = BitmapFactory.decodeByteArray(imgByte, 0, imgByte.size)
+            val drawable = BitmapDrawable(ctx.resources, bitmapData)
+            visitor.builder().setSpan(ImageSpan(drawable), tag.start())
+            Log.d("IMAGE", drawable.toString())
+        }
     }
 
     override fun supportedTags() = listOf("img")
