@@ -32,6 +32,7 @@ import com.yong.blog.ui.theme.Blog_LR_AndroidTheme
 import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonVisitor
 import io.noties.markwon.html.*
+import io.noties.markwon.image.ImagesPlugin
 import io.noties.markwon.syntax.Prism4jThemeDarkula
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
@@ -138,6 +139,7 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
 
     val syntaxHighlight = SyntaxHighlightPlugin.create(Prism4j(TestGrammarLocator()), Prism4jThemeDarkula.create())
     val markwon = Markwon.builder(ctx)
+        .usePlugin(ImagesPlugin.create())
         .usePlugin(htmlPlugin)
         .usePlugin(syntaxHighlight)
         .build()
