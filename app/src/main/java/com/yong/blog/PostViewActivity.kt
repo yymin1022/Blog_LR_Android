@@ -133,7 +133,7 @@ fun PostViewContent(postContent: String, postURL: String, postType: String) {
 
     val htmlPlugin = HtmlPlugin.create { plugin: HtmlPlugin ->
         plugin.addHandler(TagHandlerNoOp.create("img"))
-        plugin.addHandler(htmlTagHandler(ctx, scope, postType, postURL))
+        plugin.addHandler(HtmlTagHandler(ctx, scope, postType, postURL))
     }
 
     val syntaxHighlight = SyntaxHighlightPlugin.create(Prism4j(TestGrammarLocator()), Prism4jThemeDarkula.create())
@@ -194,7 +194,7 @@ fun PostViewTitle(postTitle: String) {
     )
 }
 
-class htmlTagHandler constructor(
+class HtmlTagHandler constructor(
         private val ctx: Context,
         private val scope: CoroutineScope,
         private val postType: String,
