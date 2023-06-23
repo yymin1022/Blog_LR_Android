@@ -48,6 +48,7 @@ android {
     configurations {
         implementation.exclude group: "org.jetbrains", module: "annotations"
     }
+    namespace 'com.yong.blog'
 }
 
 dependencies {
