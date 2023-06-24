@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Blog_LR_Android</string>
-    <string name="title_activity_post_list">PostList</string>
-    <string name="title_activity_post_view">PostViewActivity</string>
+    <string name="app_name">LR\'s Blog</string>
+    <string name="title_activity_post_list">Post List</string>
+    <string name="title_activity_post_view">Post View</string>
 </resources>
